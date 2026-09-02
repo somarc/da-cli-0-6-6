@@ -13,6 +13,7 @@
 
 const LOTTIE_WEB_SRC = '/scripts/vendor/lottie-light-5.12.2.min.js';
 const DEFAULT_LOTTIE_PATH = '/media/outer-loop-hero.lottie.json';
+const REDUCED_MOTION_FRAME = 150;
 
 let lottieLoader;
 
@@ -90,8 +91,8 @@ function buildMotif(path) {
 
   motif.append(stage, mass, innerLabel, outerLabel, receiptLabel, motionToggle);
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) {
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motionPreference.matches) {
     motionToggle.remove();
     return motif;
   }
@@ -114,16 +115,24 @@ function buildMotif(path) {
         stage.querySelector('.hero-loop-fallback')?.remove();
         motif.classList.add('hero-lottie-ready');
         let userPaused = false;
+        let observer;
         motionToggle.disabled = false;
-        motionToggle.setAttribute('aria-pressed', 'false');
         motionToggle.addEventListener('click', () => {
           userPaused = !userPaused;
           if (userPaused) animation.pause();
           else animation.play();
           motionToggle.textContent = userPaused ? 'Play orbit' : 'Pause orbit';
-          motionToggle.setAttribute('aria-pressed', String(userPaused));
         });
-        const observer = new IntersectionObserver((entries) => {
+        const stopForReducedMotion = (event) => {
+          if (!event.matches) return;
+          userPaused = true;
+          observer?.disconnect();
+          animation.goToAndStop(REDUCED_MOTION_FRAME, true);
+          motionToggle.remove();
+          motionPreference.removeEventListener('change', stopForReducedMotion);
+        };
+        motionPreference.addEventListener('change', stopForReducedMotion);
+        observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !userPaused) animation.play();
             else animation.pause();
