@@ -52,3 +52,19 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* Metrics are evidence figures, not feature-card headings. */
+.feature-grid.metrics .feature-grid-item {
+  min-height: 168px;
+}
+
+.feature-grid.metrics .feature-grid-index {
+  margin-bottom: var(--space-xs);
+}
+
+.feature-grid.metrics .feature-grid-title {
+  font-family: var(--mono-font-family);
+  font-size: clamp(1.55rem, 3vw, 2.5rem);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}

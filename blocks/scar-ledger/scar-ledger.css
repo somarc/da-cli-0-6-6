@@ -1,0 +1,113 @@
+.scar-ledger-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.scar-ledger-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 2fr);
+  grid-template-areas:
+    'head response'
+    'evidence evidence';
+  gap: var(--space-s) var(--space-l);
+  padding: var(--space-m) 0;
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.scar-ledger-head {
+  grid-area: head;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'number title'
+    'number state';
+  align-content: start;
+  gap: var(--space-xs) var(--space-s);
+}
+
+.scar-ledger-number {
+  grid-area: number;
+  padding-top: 0.15em;
+  font-family: var(--mono-font-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+}
+
+.scar-ledger-title {
+  grid-area: title;
+  font-size: var(--heading-font-size-s);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.scar-ledger-title > :first-child,
+.scar-ledger-response > :first-child,
+.scar-ledger-evidence > :first-child:not(.scar-ledger-evidence-label) {
+  margin-top: 0;
+}
+
+.scar-ledger-title > :last-child,
+.scar-ledger-response > :last-child,
+.scar-ledger-evidence > :last-child {
+  margin-bottom: 0;
+}
+
+.scar-ledger-state {
+  grid-area: state;
+  justify-self: start;
+}
+
+.scar-ledger-response {
+  grid-area: response;
+  color: var(--ink-soft);
+  font-size: var(--body-font-size-s);
+}
+
+.scar-ledger-evidence {
+  grid-area: evidence;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-s);
+  align-items: baseline;
+  margin-left: calc(2.4ch + var(--space-s));
+  padding-top: var(--space-s);
+  border-top: var(--hairline) dashed var(--paper-line);
+  color: var(--ink-dim);
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-xs);
+}
+
+.scar-ledger-evidence-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.scar-ledger-evidence-fragment > :first-child {
+  margin-top: 0;
+}
+
+.scar-ledger-evidence-fragment > :last-child {
+  margin-bottom: 0;
+}
+
+@media (width < 700px) {
+  .scar-ledger-entry {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'response'
+      'evidence';
+    gap: var(--space-s);
+  }
+
+  .scar-ledger-evidence {
+    margin-left: 0;
+  }
+}

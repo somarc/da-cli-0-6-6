@@ -406,7 +406,14 @@ main img {
 .chip-neutral { color: var(--ink-soft); }
 
 .chip-completed,
-.chip-ok { color: var(--ink-ok); }
+.chip-ok,
+.chip-healed { color: var(--ink-ok); }
+
+.chip-fenced { color: var(--accent-deep); }
+
+.chip-armed { color: var(--ink-amber); }
+
+.chip-open { color: var(--ink-soft); }
 
 .chip-commit,
 .chip-confirmed { color: var(--stamp-red); }
@@ -425,8 +432,19 @@ main .section.dark .chip-accent { color: var(--panel-accent); }
 
 .terminal .chip-completed,
 .terminal .chip-ok,
+.terminal .chip-healed,
 main .section.dark .chip-completed,
-main .section.dark .chip-ok { color: var(--panel-ok); }
+main .section.dark .chip-ok,
+main .section.dark .chip-healed { color: var(--panel-ok); }
+
+.terminal .chip-fenced,
+main .section.dark .chip-fenced { color: var(--panel-accent); }
+
+.terminal .chip-armed,
+main .section.dark .chip-armed { color: var(--panel-amber); }
+
+.terminal .chip-open,
+main .section.dark .chip-open { color: var(--panel-text-dim); }
 
 .terminal .chip-commit,
 .terminal .chip-confirmed,
@@ -459,6 +477,28 @@ main > .section > div {
    between sections — block CSS never sets outer margins */
 main > .section > div + div {
   margin-top: var(--space-l);
+}
+
+main > .section > .default-content-wrapper > p,
+main > .section > .default-content-wrapper > ul,
+main > .section > .default-content-wrapper > ol {
+  max-width: 72ch;
+}
+
+main > .section > .default-content-wrapper > p:first-child > em:only-child {
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-xs);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+main .section.dark > .default-content-wrapper > p:first-child > em:only-child {
+  color: var(--panel-accent);
 }
 
 /* hero occupies its whole section — full-bleed paper, no default gutters.
@@ -514,6 +554,55 @@ main .section.dark pre {
   border-color: var(--panel-line);
   background-color: var(--panel-raise);
   color: var(--panel-text);
+}
+
+main .section.dark p {
+  color: var(--panel-text-dim);
+}
+
+/* Section-owned dark context for block internals. */
+main .section.dark .pipeline {
+  --pipeline-copy: var(--panel-text-dim);
+  --pipeline-rule: var(--panel-line);
+  --pipeline-strong: var(--panel-text);
+  --pipeline-tag: var(--panel-raise);
+}
+
+main .section.dark .pipeline-ordinal {
+  border-color: var(--pipeline-strong);
+  background-color: var(--panel);
+  color: var(--pipeline-strong);
+}
+
+main .section.dark .pipeline-step:not(:last-child) .pipeline-marker::after {
+  background-color: var(--pipeline-rule);
+}
+
+main .section.dark .pipeline-id {
+  color: var(--pipeline-strong);
+}
+
+main .section.dark .pipeline-desc {
+  color: var(--pipeline-copy);
+}
+
+main .section.dark .pipeline-dep {
+  border-color: var(--pipeline-rule);
+  background-color: var(--pipeline-tag);
+  color: var(--pipeline-copy);
+}
+
+main .section.dark .spec-rows,
+main .section.dark .spec-row {
+  border-color: var(--panel-line);
+}
+
+main .section.dark .spec-key {
+  color: var(--panel-text);
+}
+
+main .section.dark .spec-value {
+  color: var(--panel-text-dim);
 }
 
 /* stub: a perforated receipt-stub tear across the top of the section */

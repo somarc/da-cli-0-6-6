@@ -18,13 +18,15 @@ pass." 0.6.6's governing invariant is what it did with its own scars:
 
 > **Every scar becomes a gate.**
 
-Each finding became a structural refusal, not a patch: the packed tarball
-installs from extraction under test, shipped-doc links must resolve inside
-the tarball, the field-evidence budget refuses a release whose unobserved
-command surface grows, the credential helper is pinned to an immutable
-commit, and CodeQL + npm provenance are armed to activate on repository
-visibility. This site is the proof ledger for that claim — and its own
-certification retains field evidence that shrinks the unobserved backlog.
+Each actionable finding became a structural refusal rather than a one-time
+patch: the packed tarball installs from extraction under test, shipped-doc
+links must resolve inside the tarball, and the field-evidence budget refuses a
+release whose unobserved command surface grows. The credential helper is pinned
+to an immutable commit, while CodeQL and npm provenance remain explicitly armed
+behind repository visibility. The bus-factor finding remains open. This site is
+the proof ledger for that honest state. Its certification adds real operational
+receipts without pretending those receipts alone close the rubric's retained
+field-evidence backlog.
 
 ## Design identity
 
@@ -74,8 +76,9 @@ npx -y @adobe/aem-cli up
 ## Certification
 
 ```sh
-da pipeline run certify.yaml --riverboat-gambler --commit \
-  --org somarc --repo da-cli-0-6-6
+da --org somarc --repo da-cli-0-6-6 --branch main --qmd \
+  --riverboat-gambler --commit \
+  pipeline run certify.yaml --approve evidence-build
 ```
 
 Evidence in, page out: the pipeline renders `/receipts` from the QMD vault's
