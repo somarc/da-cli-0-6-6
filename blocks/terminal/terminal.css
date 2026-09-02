@@ -1,0 +1,107 @@
+.terminal {
+  border: var(--hairline) solid var(--panel-line);
+  border-radius: var(--radius-m);
+  background-color: var(--panel);
+  color: var(--panel-text);
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-s);
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgb(21 19 14 / 30%);
+}
+
+.terminal.terminal-receipt {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgb(21 19 14 / 30%);
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  border-bottom: var(--hairline) solid var(--panel-line);
+  background-color: var(--panel-raise);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+.terminal-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--panel-line);
+}
+
+.terminal-dot:nth-child(1) { background-color: var(--panel-stamp); }
+.terminal-dot:nth-child(2) { background-color: var(--panel-amber); }
+.terminal-dot:nth-child(3) { background-color: var(--panel-ok); }
+
+.terminal-titlebar-label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--panel-text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.terminal-body {
+  padding: var(--space-m);
+  overflow-x: auto;
+  line-height: 1.7;
+}
+
+.terminal-line {
+  display: flex;
+  gap: 0.65em;
+  white-space: pre;
+}
+
+.terminal-line-prompt {
+  color: var(--panel-text);
+}
+
+.terminal-prompt {
+  flex: none;
+  color: var(--panel-accent);
+  font-weight: 600;
+}
+
+.terminal-command {
+  color: var(--panel-text);
+}
+
+.terminal-line-output {
+  color: var(--panel-text-dim);
+}
+
+.terminal-line-output code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.terminal-body pre {
+  margin: 0.5em 0;
+  border: none;
+  border-radius: var(--radius-s);
+  background-color: var(--panel-raise);
+  color: var(--panel-text);
+  white-space: pre;
+}
+
+.terminal-body pre code {
+  background: none;
+  color: inherit;
+}
+
+@media (width >= 600px) {
+  .terminal-body {
+    padding: var(--space-m) var(--space-l);
+    font-size: 15px;
+  }
+}

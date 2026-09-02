@@ -1,0 +1,175 @@
+.cards-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-m);
+}
+
+.cards-card {
+  display: flex;
+  flex-direction: column;
+  border: var(--hairline) solid var(--rule);
+  padding: var(--space-m);
+  background-color: var(--paper);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.cards-card:hover,
+.cards-card:focus-within {
+  border-color: var(--ink);
+  box-shadow: 0 10px 22px rgb(23 20 13 / 10%);
+  transform: translateY(-2px);
+}
+
+.cards-card-title {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--heading-font-size-s);
+}
+
+.cards-card-body {
+  margin: 0;
+  flex: 1 1 auto;
+  color: var(--ink-soft);
+  font-size: var(--body-font-size-s);
+}
+
+.cards-card-body > :first-child {
+  margin-top: 0;
+}
+
+.cards-card-body > :last-child {
+  margin-bottom: 0;
+}
+
+.cards-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-m);
+  margin-top: var(--space-s);
+  padding-top: var(--space-s);
+  border-top: var(--hairline) solid var(--rule);
+}
+
+.cards-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-weight: 600;
+  font-size: var(--body-font-size-s);
+}
+
+.cards-card-link::after {
+  content: '→';
+}
+
+/*
+ * docket variant — an evidence trail as numbered filing entries.
+ * Entries stack as ruled ledger lines instead of floating cards: a
+ * mono index stamp in the margin, hairline rules between entries, a
+ * heavier opening rule, and footer links set in mono like receipt
+ * fields. Numbering is a CSS counter, so authoring stays untouched.
+ */
+.cards.docket .cards-list {
+  display: block;
+  counter-reset: docket;
+  border-top: 2px solid var(--rule);
+}
+
+.cards.docket .cards-card {
+  counter-increment: docket;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'index title'
+    'index body'
+    'index links';
+  column-gap: var(--space-m);
+  border: 0;
+  border-bottom: var(--hairline) solid var(--rule);
+  background: transparent;
+  padding: var(--space-m) var(--space-xs);
+  transition: background-color 0.18s ease;
+}
+
+.cards.docket .cards-card::before {
+  content: counter(docket, decimal-leading-zero);
+  grid-area: index;
+  min-width: 2.4ch;
+  padding-top: 4px; /* optically align the stamp with the title cap height */
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+  transition: color 0.18s ease;
+}
+
+.cards.docket .cards-card:hover,
+.cards.docket .cards-card:focus-within {
+  border-color: var(--rule);
+  background-color: var(--accent-tint);
+  box-shadow: none;
+  transform: none;
+}
+
+.cards.docket .cards-card:hover::before,
+.cards.docket .cards-card:focus-within::before {
+  color: var(--accent-deep);
+}
+
+.cards.docket .cards-card-title {
+  grid-area: title;
+}
+
+.cards.docket .cards-card-body {
+  grid-area: body;
+  max-width: 70ch;
+}
+
+.cards.docket .cards-card-links {
+  grid-area: links;
+  margin-top: var(--space-xs);
+  padding-top: 0;
+  border-top: 0;
+}
+
+.cards.docket .cards-card-link {
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-xs);
+  letter-spacing: 0.02em;
+}
+
+@media (width < 600px) {
+  .cards.docket .cards-card {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'index'
+      'title'
+      'body'
+      'links';
+    padding: var(--space-s) 0;
+  }
+
+  .cards.docket .cards-card::before {
+    padding-top: 0;
+    margin-bottom: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-card {
+    transition: none;
+  }
+
+  .cards-card:hover,
+  .cards-card:focus-within {
+    transform: none;
+  }
+
+  .cards.docket .cards-card,
+  .cards.docket .cards-card::before {
+    transition: none;
+  }
+}

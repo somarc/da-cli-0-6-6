@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — header + footer (static, post-decoration shape)</title>
+<link rel="stylesheet" href="/styles/styles.css"/>
+<link rel="stylesheet" href="/blocks/header/header.css"/>
+<link rel="stylesheet" href="/blocks/footer/footer.css"/>
+<style>
+  /*
+   * This fixture does not run scripts.js: header/footer normally load
+   * via a /nav + /footer fragment fetch that only resolves against a
+   * live DA-backed site, which this local, DA-untouched verification
+   * pass intentionally does not stand up. Markup below is the exact
+   * shape header.js / footer.js produce post-decoration, written
+   * statically so the masthead + footer CSS can still be reviewed.
+   */
+  main {
+    padding-top: calc(var(--nav-height) + 40px);
+  }
+</style>
+</head>
+<body class="appear">
+<header>
+  <div class="header block" data-block-name="header" data-block-status="loaded">
+    <div class="nav-wrapper">
+      <nav id="nav" aria-expanded="false">
+        <div class="nav-hamburger">
+          <button type="button" aria-controls="nav" aria-label="Open navigation">
+            <span class="nav-hamburger-icon"></span>
+          </button>
+        </div>
+        <div class="nav-brand">
+          <a href="/">da-cli</a>
+          <span class="chip chip-accent nav-version">0.6.6</span>
+        </div>
+        <div class="nav-sections">
+          <div class="default-content-wrapper">
+            <ul>
+              <li>Release notes</li>
+              <li>Ledger</li>
+              <li>Docs</li>
+            </ul>
+          </div>
+        </div>
+        <div class="nav-tools"></div>
+      </nav>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="section">
+    <div>
+      <h1>Masthead + footer review</h1>
+      <p>Static reconstruction of the decorated header/footer DOM, for CSS review only.</p>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="footer block" data-block-name="footer" data-block-status="loaded">
+    <div>
+      <div>
+        <p>da-cli is an independent release site. Not affiliated with Adobe.</p>
+        <p><a href="#">Release notes</a> · <a href="#">Ledger</a> · <a href="#">Source</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — callout</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div>
+    <div class="callout">
+      <div><div>INVARIANT</div><div><p>A dry-run plan can never mutate remote state, regardless of caller intent.</p></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="callout">
+      <div><div>DURABLE DECISION</div><div><p>Plans are content-addressed by digest so a stale plan can never silently re-apply against a moved target.</p></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="callout">
+      <div><div>MAINTAINER DECISION</div><div><p>Execute requires the exact list of approved action ids — a bare "commit" flag is not sufficient.</p></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="callout">
+      <div><div></div><div><p>Defensive check: no stamp label authored — falls back to a generic "NOTE" stamp.</p></div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

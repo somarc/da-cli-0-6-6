@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — pipeline</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div>
+    <div>
+      <h2>Release pipeline</h2>
+    </div>
+    <div class="pipeline">
+      <div><div>orient</div><div>Resolve target, Git, and auth state.</div></div>
+      <div><div>inspect</div><div>Run read-only site model + freshness checks.</div><div><ul><li>orient</li></ul></div></div>
+      <div><div>plan</div><div>Generate a digest-bound pipeline and dry-run it.</div><div>orient, inspect</div></div>
+      <div><div>execute</div><div>Run exactly one approved plan snapshot.</div><div>plan</div></div>
+      <div><div>verify</div><div>Confirm the plan landed at its boundary.</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <h2>Pipeline (riverboat) — arbitrary local execution</h2>
+    </div>
+    <div class="pipeline riverboat">
+      <div><div>fetch</div><div>Clone the working checkout locally.</div></div>
+      <div><div>build</div><div>Run <code>npm install &amp;&amp; npm run build</code> on the local machine.</div><div>fetch</div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

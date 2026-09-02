@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — feature-grid</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div>
+    <div>
+      <h2>What 0.6.6 proves</h2>
+    </div>
+    <div class="feature-grid">
+      <div><div>Digest-bound plans</div><div><p>Every plan snapshots the exact actions and expires — no stale plan can be replayed against a moved target.</p></div></div>
+      <div><div>Explicit approval</div><div><p>Commit requires the human to name the exact mutating action ids, not just click "yes."</p></div></div>
+      <div><div>Read-only by default</div><div><p>Inspection and freshness checks never touch admin, preview, or live APIs.</p></div></div>
+      <div><div>Printed receipts</div><div><p>Every boundary crossing — plan, execute, verify — produces a receipt: what ran, what changed, what refused.</p></div></div>
+      <div><div>Contract-checked content</div><div><p>Section and media URL strictness catch malformed authoring before it ships.</p></div></div>
+      <div><div></div><div><p>Defensive check: title cell present-but-empty, description-only row still renders in place.</p></div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

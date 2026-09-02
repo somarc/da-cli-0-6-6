@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none'; frame-src 'self' https:; require-trusted-types-for 'script';"
+    move-to-http-header="true"
+  >
+  <title>404 — no receipt on file</title>
+  <script nonce="aem" type="text/javascript">
+    window.isErrorPage = true;
+    window.errorCode = '404';
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="404 — no receipt on file">
+  <script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+  <script nonce="aem" type="module">
+    window.addEventListener('load', () => {
+      if (document.referrer) {
+        const { origin, pathname } = new URL(document.referrer);
+        if (origin === window.location.origin) {
+          const backBtn = document.createElement('a');
+          backBtn.classList.add('button', 'error-button-back');
+          backBtn.href = pathname;
+          backBtn.textContent = 'Go back';
+          backBtn.title = 'Go back';
+          const btnContainer = document.querySelector('.button-container');
+          btnContainer.append(backBtn);
+        }
+      }
+    });
+  </script>
+  <script nonce="aem" type="module">
+    import { sampleRUM } from '/scripts/aem.js';
+    sampleRUM('404', { source: document.referrer });
+  </script>
+  <link rel="stylesheet" href="/styles/styles.css">
+  <style>
+    main.error {
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main.error .section {
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 56px var(--space-m) 40px;
+      text-align: center;
+      background-color: var(--paper);
+      box-shadow: 0 18px 34px rgb(23 20 13 / 12%);
+      position: relative;
+    }
+
+    main.error .section::before,
+    main.error .section::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background-image: radial-gradient(circle at 9px 0, transparent 6px, var(--paper) 6.5px);
+      background-size: 18px 10px;
+      background-repeat: repeat-x;
+    }
+
+    main.error .section::before {
+      top: 0;
+      background-position: center top;
+    }
+
+    main.error .section::after {
+      bottom: 0;
+      background-image: radial-gradient(circle at 9px 10px, transparent 6px, var(--paper) 6.5px);
+      background-position: center bottom;
+    }
+
+    main.error .error-stamp {
+      display: inline-block;
+      margin-bottom: 16px;
+      border: 2px solid var(--stamp-red);
+      border-radius: 3px;
+      padding: 0.25em 0.8em;
+      font-family: var(--mono-font-family);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stamp-red);
+      transform: rotate(-2deg);
+    }
+
+    main.error .error-number {
+      margin: 8px 0;
+      font-family: var(--mono-font-family);
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+
+    main.error .error-message {
+      margin: 0 0 24px;
+      color: var(--ink-soft);
+      font-weight: 400;
+      font-size: var(--body-font-size-m);
+    }
+  </style>
+  <link rel="stylesheet" href="/styles/lazy-styles.css">
+</head>
+
+<body>
+  <header></header>
+  <main class="error">
+    <div class="section">
+      <span class="error-stamp" aria-hidden="true">refused</span>
+      <p class="error-number">404</p>
+      <h2 class="error-message">No receipt on file for this path.</h2>
+      <p class="button-container">
+        <a href="/" class="button secondary error-button-home">Go home</a>
+      </p>
+    </div>
+  </main>
+  <footer></footer>
+</body>
+
+</html>

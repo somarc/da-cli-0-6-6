@@ -1,0 +1,33 @@
+footer {
+  border-top: var(--hairline) solid var(--rule);
+  background-color: var(--paper-deep);
+  color: var(--ink-soft);
+  font-size: var(--body-font-size-xs);
+}
+
+footer .footer > div {
+  margin: auto;
+  max-width: 1200px;
+  padding: var(--space-l) var(--space-s) var(--space-m);
+}
+
+footer .footer p {
+  margin: 0;
+}
+
+footer .footer a:any-link {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+footer .footer a:hover,
+footer .footer a:focus-visible {
+  color: var(--accent-deep);
+}
+
+@media (width >= 900px) {
+  footer .footer > div {
+    padding: var(--space-l) var(--space-m) var(--space-m);
+  }
+}

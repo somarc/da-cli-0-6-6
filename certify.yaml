@@ -1,0 +1,52 @@
+# Certification pipeline for the da-cli 0.6.6 proof site (ADR 0003).
+#
+#   da pipeline run certify.yaml --riverboat-gambler --commit \
+#     --org somarc --repo da-cli-0-6-6
+#
+# The single shell-executable (riverboat) step renders /receipts from the QMD
+# vault's receipt JSON — evidence in, page out, no hand-written history. Every
+# other step is reviewed da-cli surface. The pipeline run itself journals
+# exactly one receipt when the ambient qmdJournal toggle is on; its steps
+# never inherit journaling.
+name: certify-0-6-6
+steps:
+  - id: receipts-page
+    command: node tools/receipts-page.mjs --site somarc/da-cli-0-6-6 --out .da/out/receipts.html
+    requires_approval: true
+    timeout: 60s
+  - id: put-receipts
+    command: content put /receipts .da/out/receipts.html
+    depends_on: [receipts-page]
+  - id: preview-index
+    command: preview page /index
+  - id: preview-boundaries
+    command: preview page /boundaries
+  - id: preview-commands
+    command: preview page /commands
+  - id: preview-qmd
+    command: preview page /qmd
+  - id: preview-riverboat
+    command: preview page /riverboat
+  - id: preview-creations
+    command: preview page /creations
+  - id: preview-release
+    command: preview page /release
+  - id: preview-nav
+    command: preview page /nav
+  - id: preview-footer
+    command: preview page /footer
+  - id: preview-receipts
+    command: preview page /receipts
+    depends_on: [put-receipts]
+  - id: audit-index
+    command: audit full /index --format json
+    depends_on: [preview-index]
+  - id: audit-qmd
+    command: audit full /qmd --format json
+    depends_on: [preview-qmd]
+  - id: audit-receipts
+    command: audit full /receipts --format json
+    depends_on: [preview-receipts]
+  - id: freshness
+    command: site freshness / --format json
+    depends_on: [preview-index, preview-receipts, preview-boundaries, preview-commands, preview-qmd, preview-riverboat, preview-creations, preview-release, preview-nav, preview-footer]

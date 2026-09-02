@@ -1,0 +1,72 @@
+.spec-rows {
+  margin: 0;
+  border-top: var(--hairline) solid var(--rule);
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: var(--space-s) 0;
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.spec-key {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.spec-value {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: var(--body-font-size-s);
+}
+
+.spec-value > :first-child {
+  margin-top: 0;
+}
+
+.spec-value > :last-child {
+  margin-bottom: 0;
+}
+
+/* schema variant: mono field name + inline type hint */
+.spec.schema .spec-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6em;
+  font-family: var(--mono-font-family);
+  font-weight: 600;
+}
+
+.spec.schema .spec-key-name {
+  padding: 0;
+  background: none;
+  color: var(--accent-deep);
+}
+
+.spec.schema .spec-key-type {
+  font-family: var(--mono-font-family);
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--ink-dim);
+}
+
+.spec.schema .spec-key-type::before {
+  content: '· ';
+}
+
+@media (width >= 600px) {
+  .spec-row {
+    grid-template-columns: minmax(160px, 30%) 1fr;
+    gap: var(--space-m);
+  }
+}
+
+@media (width >= 900px) {
+  .spec-row {
+    grid-template-columns: minmax(220px, 26%) 1fr;
+  }
+}

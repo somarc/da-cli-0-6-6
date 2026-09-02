@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — terminal</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div class="dark">
+    <div>
+      <h2>Session transcript</h2>
+    </div>
+    <div class="terminal">
+      <div><div>~/da-cli % session — read-only</div></div>
+      <div><div>$ da-cli inspect --target somarc/da-cli-0-6-6</div></div>
+      <div><div>resolved target: prod / main</div></div>
+      <div><div>$ da-cli plan receipt-print --dry-run</div></div>
+      <div><div>3 actions queued<br>expires in 10m</div></div>
+      <div><div><pre><code>{
+  "planId": "sha256:2f9c…",
+  "actions": ["content-put-1", "publish-page-1"]
+}</code></pre></div></div>
+    </div>
+  </div>
+
+  <div class="dark">
+    <div>
+      <h2>Terminal (receipt) — tinted variant, no title bar</h2>
+    </div>
+    <div class="terminal receipt">
+      <div><div>$ da-cli execute --commit --approve content-put-1,publish-page-1 --plan sha256:2f9c1a7e6b3d4f8091a2c5e7d6b8f01234567890abcdef1234567890abcdef12</div></div>
+      <div><div>receipt printed → 0x9c2f1a</div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

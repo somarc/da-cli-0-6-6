@@ -1,0 +1,184 @@
+/* full-bleed ownership lives in styles.css (section layer), not here */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-l);
+  align-items: center;
+  padding: var(--space-xl) var(--space-s) var(--space-l);
+  background-color: var(--paper);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 18px;
+  background-image: radial-gradient(circle at 9px 9px, var(--paper) 6px, transparent 6.5px);
+  background-size: 18px 18px;
+  background-repeat: repeat-x;
+  background-position: center bottom;
+}
+
+.hero-content {
+  max-width: 640px;
+}
+
+.hero-eyebrow {
+  margin: 0 0 var(--space-s);
+  font-family: var(--mono-font-family);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+.hero-content h1 {
+  margin-top: 0;
+  font-size: var(--heading-font-size-xxl);
+}
+
+.hero-content p {
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+
+.hero-proof {
+  list-style: none;
+  margin: var(--space-m) 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.hero-proof li {
+  position: relative;
+  padding-left: 1.7em;
+  color: var(--ink);
+}
+
+.hero-proof li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  font-family: var(--mono-font-family);
+  font-weight: 600;
+  color: var(--ink-ok);
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+
+/* procedural ledger + stamp motif — decorative, aria-hidden */
+.hero-motif {
+  position: relative;
+  display: none;
+}
+
+.hero-ledger {
+  display: grid;
+  gap: 10px;
+  padding: var(--space-m);
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-m);
+  background-color: var(--paper-deep);
+}
+
+.hero-ledger-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.hero-ledger-bar {
+  width: var(--w, 60%);
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--rule);
+}
+
+.hero-ledger-figure {
+  margin-left: auto;
+  font-family: var(--mono-font-family);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.hero-stamp {
+  position: absolute;
+  right: -8px;
+  bottom: -22px;
+  width: 108px;
+  height: 108px;
+  transform: rotate(-11deg);
+  color: var(--stamp-red);
+}
+
+.hero-stamp circle {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+}
+
+.hero-stamp circle:first-of-type {
+  stroke-dasharray: 4 3;
+}
+
+.hero-stamp text {
+  fill: currentcolor;
+  font-family: var(--mono-font-family);
+}
+
+.hero-stamp-version {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero-stamp-sub {
+  font-size: 6.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+@media (width >= 600px) {
+  .hero {
+    padding: var(--space-xl) var(--space-m) var(--space-l);
+  }
+
+  .hero-motif {
+    display: block;
+    max-width: 320px;
+    margin-top: var(--space-m);
+  }
+}
+
+@media (width >= 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-m);
+  }
+
+  .hero-motif {
+    margin-top: 0;
+    max-width: none;
+  }
+}
+
+@media (width >= 1200px) {
+  .hero {
+    padding-left: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
+    padding-right: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
+  }
+}

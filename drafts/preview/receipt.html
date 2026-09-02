@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — receipt</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div class="stub">
+    <div>
+      <h2>Completed commit</h2>
+    </div>
+    <div class="receipt">
+      <div><div>operation</div><div>content_put</div></div>
+      <div><div>mode</div><div>commit</div></div>
+      <div><div>state</div><div>completed</div></div>
+      <div><div>target</div><div>/drafts/receipt-print</div></div>
+      <div><div>startedAt</div><div>2026-02-14T09:12:03Z</div></div>
+      <div><div>counts</div><div>3 actions</div></div>
+      <div><div>codes</div><div>200, 200, 204</div></div>
+      <div><div>evidence</div><div><a href="#">preview link →</a></div></div>
+      <div><div>enablement</div><div>DA_STUDIO_ENABLE_WRITES=1</div></div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <h2>Refused dry-run — unknown keys still render</h2>
+    </div>
+    <div class="receipt">
+      <div><div>mode</div><div>dry-run</div></div>
+      <div><div>state</div><div>refused</div></div>
+      <div><div>approvalRequired</div><div>true</div></div>
+      <div><div>reviewer</div><div></div></div>
+      <div><div></div><div>orphan value with no key</div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

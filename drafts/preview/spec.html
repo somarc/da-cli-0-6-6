@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — spec</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div>
+    <div>
+      <h2>Invariants</h2>
+    </div>
+    <div class="spec">
+      <div><div>Plans expire</div><div><p>A plan snapshot is only valid for its declared TTL, never indefinitely.</p></div></div>
+      <div><div>Commit is enumerated</div><div><p>Execution accepts only the exact approved action ids for one plan digest.</p></div></div>
+      <div><div>No silent mutation</div><div><p>Every state-changing call happens inside a named action with a receipt.</p></div></div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <h2>Spec (schema) — plan action fields</h2>
+    </div>
+    <div class="spec schema">
+      <div><div>id: string</div><div><p>Unique action id within the plan, kebab-case.</p></div></div>
+      <div><div>kind: "content_put" | "publish_page" | "deploy_page"</div><div><p>Discriminates the action's shape.</p></div></div>
+      <div><div>dependsOn: string[]</div><div><p>Other action ids that must complete first.</p></div></div>
+      <div><div>planId</div><div><p>No colon authored — falls back to a plain mono key, no type badge.</p></div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

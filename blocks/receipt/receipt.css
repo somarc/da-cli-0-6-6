@@ -1,0 +1,85 @@
+.receipt {
+  position: relative;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: calc(var(--space-l) + 10px) var(--space-m);
+  background-color: var(--paper);
+  box-shadow: 0 18px 34px rgb(23 20 13 / 12%);
+}
+
+.receipt::before,
+.receipt::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: radial-gradient(circle at 9px 0, transparent 6px, var(--paper) 6.5px);
+  background-size: 18px 10px;
+  background-repeat: repeat-x;
+}
+
+.receipt::before {
+  top: 0;
+  background-position: center top;
+  transform: translateY(-1px);
+}
+
+.receipt::after {
+  bottom: 0;
+  background-image: radial-gradient(circle at 9px 10px, transparent 6px, var(--paper) 6.5px);
+  background-position: center bottom;
+  transform: translateY(1px);
+}
+
+.receipt-rows {
+  margin: 0;
+}
+
+.receipt-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding: var(--space-xs) 0;
+  border-bottom: var(--hairline) dashed var(--paper-line);
+}
+
+.receipt-row:last-child {
+  border-bottom: none;
+}
+
+.receipt-key {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.receipt-value {
+  margin: 0;
+  flex: 1 1 auto;
+  text-align: right;
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-s);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.receipt-value .chip {
+  float: right;
+}
+
+.receipt-value a {
+  font-family: var(--mono-font-family);
+}
+
+@media (width >= 600px) {
+  .receipt {
+    max-width: 520px;
+    padding: calc(var(--space-l) + 10px) var(--space-l);
+  }
+}

@@ -1,0 +1,18 @@
+.hlx/*
+coverage/*
+logs/*
+node_modules/*
+
+helix-importer-ui
+.DS_Store
+*.bak
+.idea
+
+# local verification screenshots (regeneratable, not source)
+drafts/preview/shots/
+favicon-source.png
+
+# Ensure these files are tracked
+!CLAUDE.md
+!AGENTS.md
+.da/

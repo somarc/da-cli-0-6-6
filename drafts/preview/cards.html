@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Preview — cards</title>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+  <div>
+    <div>
+      <h2>Release proof — default, 3-cell contract</h2>
+    </div>
+    <div class="cards">
+      <div><div>PR #661 — receipt printing</div><div><p>Adds the receipt formatter shared by plan and execute.</p></div><div><a href="#">View PR</a></div></div>
+      <div><div>ADR 0012 — plan digests</div><div><p>Why plans are content-addressed and expire.</p></div><div><a href="#">Read ADR</a></div></div>
+      <div><div>Gate: no silent commit</div><div><p>CI check that fails any execute call missing explicit action ids.</p></div></div>
+      <div><div>No link, no body</div></div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <h2>Release proof — default, 1-cell rich contract</h2>
+    </div>
+    <div class="cards">
+      <div><div><h3 id="rich-a">Decision #173</h3><p>The maintainer decision that reopened 0.6.6 scope — links inside the body like <a href="#">this one</a> survive.</p><p><a href="#">somarc/da-cli#173</a></p></div></div>
+      <div><div><h3 id="rich-b">PRs #176 + #177 — two footer links</h3><p>Release smoke caught the tarball breakage; CI history exposed a timing-fragile test.</p><p><a href="#">qualification</a> · <a href="#">CI budget</a></p></div></div>
+      <div><div><h3 id="rich-c">No footer paragraph</h3><p>A rich row without a trailing link paragraph simply renders without a footer.</p></div></div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <h2>The paper trail — docket variant</h2>
+    </div>
+    <div class="cards docket">
+      <div><div><h3 id="docket-a">Decision #173</h3><p>The maintainer decision that reopened 0.6.6 scope for QMD Phase 2 — and then made full QMD integration a release gate.</p><p><a href="#">somarc/da-cli#173</a></p></div></div>
+      <div><div><h3 id="docket-b">PR #174 — universal --qmd</h3><p>Every leaf command journals one typed outcome receipt through a generic boundary projection.</p><p><a href="#">feat/065-qmd-universal</a></p></div></div>
+      <div><div><h3 id="docket-c">PRs #176 + #177 — the gates bite</h3><p>Release smoke caught the tarball breakage; CI history exposed a timing-fragile test.</p><p><a href="#">qualification</a> · <a href="#">CI budget</a></p></div></div>
+      <div><div><h3 id="docket-d">The receipts</h3><p>This site's own build ledger — including the two failed attempts that preceded its successful registration.</p><p><a href="#">the receipts page</a></p></div></div>
+    </div>
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>
