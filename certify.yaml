@@ -1,36 +1,33 @@
-# Certification pipeline for the da-cli 0.6.6 proof site (ADR 0003).
+# Certification pipeline for the da-cli 0.6.6 proof site.
 #
-#   da pipeline run certify.yaml --riverboat-gambler --commit \
-#     --org somarc --repo da-cli-0-6-6
+#   da --org somarc --repo da-cli-0-6-6 --branch main --qmd \
+#     --riverboat-gambler --commit \
+#     pipeline run certify.yaml --approve evidence-build
 #
-# The single shell-executable (riverboat) step renders /receipts from the QMD
-# vault's receipt JSON — evidence in, page out, no hand-written history. Every
-# other step is reviewed da-cli surface. The pipeline run itself journals
-# exactly one receipt when the ambient qmdJournal toggle is on; its steps
-# never inherit journaling.
-name: certify-0-6-6
+# DA is authoritative for authored pages and fragments. This pipeline uploads
+# only /receipts, the evidence-derived projection. One explicitly approved
+# shell step verifies the generated Lottie artifact and renders that page from
+# the QMD vault. Every remote operation is reviewed da-cli surface. The
+# pipeline journals one outcome receipt; child steps never inherit journaling.
+name: certify-0-6-6-outer-loop
 steps:
-  - id: receipts-page
-    command: node tools/receipts-page.mjs --site somarc/da-cli-0-6-6 --out .da/out/receipts.html
+  - id: evidence-build
+    command: npm run check:motion && node tools/receipts-page.mjs --site somarc/da-cli-0-6-6 --out .da/out/receipts.html
     requires_approval: true
     timeout: 60s
+
   - id: put-receipts
-    command: content put /receipts .da/out/receipts.html
-    depends_on: [receipts-page]
+    command: content put /receipts .da/out/receipts.html --strict-sections
+    depends_on: [evidence-build]
+
   - id: preview-index
     command: preview page /index
-  - id: preview-boundaries
-    command: preview page /boundaries
-  - id: preview-commands
-    command: preview page /commands
-  - id: preview-qmd
-    command: preview page /qmd
+  - id: preview-review
+    command: preview page /review
+  - id: preview-ledger
+    command: preview page /ledger
   - id: preview-riverboat
     command: preview page /riverboat
-  - id: preview-creations
-    command: preview page /creations
-  - id: preview-release
-    command: preview page /release
   - id: preview-nav
     command: preview page /nav
   - id: preview-footer
@@ -38,15 +35,23 @@ steps:
   - id: preview-receipts
     command: preview page /receipts
     depends_on: [put-receipts]
+
   - id: audit-index
     command: audit full /index --format json
-    depends_on: [preview-index]
-  - id: audit-qmd
-    command: audit full /qmd --format json
-    depends_on: [preview-qmd]
+    depends_on: [preview-index, preview-nav, preview-footer]
+  - id: audit-review
+    command: audit full /review --format json
+    depends_on: [preview-review, preview-nav, preview-footer]
+  - id: audit-ledger
+    command: audit full /ledger --format json
+    depends_on: [preview-ledger, preview-nav, preview-footer]
+  - id: audit-riverboat
+    command: audit full /riverboat --format json
+    depends_on: [preview-riverboat, preview-nav, preview-footer]
   - id: audit-receipts
     command: audit full /receipts --format json
-    depends_on: [preview-receipts]
+    depends_on: [preview-receipts, preview-nav, preview-footer]
+
   - id: freshness
-    command: site freshness / --format json
-    depends_on: [preview-index, preview-receipts, preview-boundaries, preview-commands, preview-qmd, preview-riverboat, preview-creations, preview-release, preview-nav, preview-footer]
+    command: site freshness / --include-shared --boundary preview --fail-on preview-stale,preview-missing,source-missing,probe-failed,unknown --format json
+    depends_on: [audit-index, audit-review, audit-ledger, audit-riverboat, audit-receipts]

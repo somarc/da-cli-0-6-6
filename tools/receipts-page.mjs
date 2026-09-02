@@ -55,21 +55,6 @@ const receipts = [...walkReceipts(siteDir)]
   .map((p) => JSON.parse(readFileSync(p, 'utf8')))
   .sort((a, b) => String(a.timing.startedAt).localeCompare(String(b.timing.startedAt)));
 
-// Vault-wide context: how many receipts exist per site (evidence of multi-site dogfood).
-const sitesRoot = join(vaultRoot, 'sites');
-const perSite = [];
-try {
-  for (const org of readdirSync(sitesRoot, { withFileTypes: true })) {
-    if (!org.isDirectory()) continue;
-    for (const repo of readdirSync(join(sitesRoot, org.name), { withFileTypes: true })) {
-      if (!repo.isDirectory()) continue;
-      const n = [...walkReceipts(join(sitesRoot, org.name, repo.name))].length;
-      if (n > 0) perSite.push({ site: `${org.name}/${repo.name}`, n });
-    }
-  }
-} catch { /* vault layout is site-scoped by contract; absence is absence */ }
-perSite.sort((a, b) => b.n - a.n);
-
 const counts = { completed: 0, failed: 0, refused: 0, cancelled: 0, partial: 0, indeterminate: 0 };
 const modes = { 'read-only': 0, 'dry-run': 0, commit: 0 };
 for (const r of receipts) {
@@ -190,7 +175,7 @@ function stepRow(s) {
 
 const anatomySection = pipeline.steps.length ? `    <div>
       <h2>What a green run does</h2>
-      <p>Certification is not a checklist in someone's head — it is the checked-in <code>certify.yaml</code>, ${pipeline.steps.length} steps run as one full riverboat: <code>da pipeline run certify.yaml --riverboat-gambler --commit</code>. Exactly ${shellSteps.length === 1 ? 'one step runs' : `${shellSteps.length} steps run`} local code — the generator that renders this very page from the vault's receipt JSON, under a finite timeout and an explicitly pre-granted approval. The other ${daSteps} steps are reviewed da-cli surface: ${nPut} upload, ${nPreview} previews, ${nAudit} audits, and ${nFresh} freshness verification. The pipeline journals exactly one receipt for itself; its steps never inherit journaling.</p>
+      <p>Certification is not a checklist in someone's head — it is the checked-in <code>certify.yaml</code>, ${pipeline.steps.length} steps run as one full riverboat: <code>da --org somarc --repo da-cli-0-6-6 --branch main --qmd --riverboat-gambler --commit pipeline run certify.yaml --approve evidence-build</code>. Exactly ${shellSteps.length === 1 ? 'one step runs' : `${shellSteps.length} steps run`} local code — verifying the generated motion artifact and rendering this page from the vault's receipt JSON under a finite timeout and an explicitly pre-granted approval. The other ${daSteps} steps are reviewed da-cli surface: ${nPut} uploads, ${nPreview} previews, ${nAudit} audits, and ${nFresh} freshness verification. The explicit <code>--qmd</code> journals exactly one receipt for the pipeline; its steps never inherit journaling.</p>
       <div class="pipeline">
 ${pipeline.steps.map(stepRow).join('\n')}
       </div>
@@ -245,7 +230,7 @@ ${anatomySection}
         <div><div>outcomes</div><div>${esc(Object.entries(counts).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(' · '))}</div></div>
         <div><div>modes</div><div>${esc(Object.entries(modes).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(' · '))}</div></div>
 ${latestRun ? `        <div><div>latest certification</div><div>${esc(latestRun.outcome.state)} · ${esc(fmt(latestRun.timing.startedAt))}</div></div>` : ''}
-        <div><div>vault</div><div>${esc(perSite.map((s) => `${s.site} (${s.n})`).join(' · '))}</div></div>
+        <div><div>vault projection</div><div>${esc(site)} only · ${receipts.length} receipts · no cross-site inventory exposed</div></div>
       </div>
       <div class="callout">
         <div>

@@ -11,6 +11,12 @@
   overflow: hidden;
 }
 
+@media (width >= 900px) and (height >= 700px) {
+  .hero {
+    min-height: min(760px, calc(100svh - var(--nav-height)));
+  }
+}
+
 .hero::after {
   content: '';
   position: absolute;
@@ -38,7 +44,10 @@
 
 .hero-content h1 {
   margin-top: 0;
-  font-size: var(--heading-font-size-xxl);
+  max-width: 9ch;
+  font-size: clamp(3.4rem, 7.5vw, 6.8rem);
+  letter-spacing: -0.055em;
+  line-height: 0.92;
 }
 
 .hero-content p {
@@ -77,78 +86,189 @@
   margin-top: var(--space-m);
 }
 
-/* procedural ledger + stamp motif — decorative, aria-hidden */
+/* outer-loop Lottie — semantic diagram with a static SVG fallback */
 .hero-motif {
   position: relative;
-  display: none;
+  display: block;
+  aspect-ratio: 1;
+  width: min(100%, 330px);
+  margin: var(--space-m) auto 0;
+  isolation: isolate;
+  contain: layout paint;
 }
 
-.hero-ledger {
-  display: grid;
-  gap: 10px;
-  padding: var(--space-m);
-  border: var(--hairline) solid var(--rule);
-  border-radius: var(--radius-m);
-  background-color: var(--paper-deep);
+.hero-lottie-stage,
+.hero-lottie-stage > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.hero-ledger-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-}
-
-.hero-ledger-bar {
-  width: var(--w, 60%);
-  height: 8px;
-  border-radius: 2px;
-  background-color: var(--rule);
-}
-
-.hero-ledger-figure {
-  margin-left: auto;
-  font-family: var(--mono-font-family);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-dim);
-  white-space: nowrap;
-}
-
-.hero-stamp {
+.hero-lottie-stage {
   position: absolute;
-  right: -8px;
-  bottom: -22px;
-  width: 108px;
-  height: 108px;
-  transform: rotate(-11deg);
-  color: var(--stamp-red);
+  inset: 0;
 }
 
-.hero-stamp circle {
+.hero-loop-fallback {
+  overflow: visible;
+}
+
+.hero-loop-guide,
+.hero-loop-outer,
+.hero-loop-inner,
+.hero-loop-field,
+.hero-loop-core-ring {
   fill: none;
-  stroke: currentcolor;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-loop-guide,
+.hero-loop-field {
+  stroke: var(--rule-soft);
   stroke-width: 2;
 }
 
-.hero-stamp circle:first-of-type {
-  stroke-dasharray: 4 3;
+.hero-loop-outer {
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-dasharray: 9 11;
 }
 
-.hero-stamp text {
-  fill: currentcolor;
+.hero-loop-inner {
+  stroke: var(--ink-ok);
+  stroke-width: 3;
+  stroke-dasharray: 9 11;
+}
+
+.hero-loop-core {
+  fill: var(--ink);
+}
+
+.hero-loop-core-ring {
+  stroke: var(--paper-deep);
+  stroke-width: 20;
+}
+
+.hero-loop-core-dot {
+  fill: var(--accent);
+}
+
+.hero-loop-pilot {
+  fill: var(--accent);
+  stroke: var(--paper);
+  stroke-width: 4;
+}
+
+.hero-loop-receipts rect {
+  fill: var(--paper);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.hero-mass-label {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 96px;
+  transform: translate(-50%, -50%);
+  color: var(--paper);
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-mass-label strong {
   font-family: var(--mono-font-family);
+  font-size: clamp(1.3125rem, 3vw, 1.75rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
 }
 
-.hero-stamp-version {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.hero-stamp-sub {
-  font-size: 6.5px;
-  font-weight: 600;
+.hero-mass-label span {
+  margin-top: 7px;
+  font-family: var(--mono-font-family);
+  font-size: 0.5rem;
   letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.66;
+}
+
+.hero-loop-label {
+  position: absolute;
+  z-index: 2;
+  padding: 0.16em 0.55em;
+  border: var(--hairline) solid currentcolor;
+  border-radius: 2px;
+  background: rgb(246 242 231 / 90%);
+  font-family: var(--mono-font-family);
+  font-size: clamp(0.5rem, 1.5vw, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero-loop-label-inner {
+  top: 29%;
+  left: 53%;
+  color: var(--ink-ok);
+}
+
+.hero-loop-label-outer {
+  top: 13%;
+  left: 13%;
+  color: var(--accent-deep);
+  transform: rotate(-18deg);
+}
+
+.hero-loop-label-receipt {
+  right: 5%;
+  bottom: 31%;
+  color: var(--stamp-red);
+  transform: rotate(5deg);
+}
+
+.hero-motion-toggle {
+  position: absolute;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+  z-index: 3;
+  min-width: 44px;
+  min-height: 44px;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-s);
+  padding: 0.45em 0.7em;
+  background: rgb(246 242 231 / 92%);
+  color: var(--ink-soft);
+  font-family: var(--mono-font-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.hero-motion-toggle:hover,
+.hero-motion-toggle:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+
+.hero-motion-toggle:disabled {
+  visibility: hidden;
+}
+
+.hero-lottie-failed .hero-lottie-stage {
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop-fallback {
+    display: block;
+  }
 }
 
 @media (width >= 600px) {
@@ -157,9 +277,9 @@
   }
 
   .hero-motif {
-    display: block;
-    max-width: 320px;
-    margin-top: var(--space-m);
+    width: 100%;
+    max-width: 430px;
+    margin: var(--space-m) auto 0;
   }
 }
 
@@ -171,8 +291,9 @@
   }
 
   .hero-motif {
+    width: 100%;
     margin-top: 0;
-    max-width: none;
+    max-width: 560px;
   }
 }
 
@@ -180,5 +301,13 @@
   .hero {
     padding-left: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
     padding-right: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-loop-label,
+  .hero-motion-toggle {
+    background: Canvas;
+    color: CanvasText;
   }
 }
