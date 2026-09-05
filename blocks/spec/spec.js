@@ -27,20 +27,38 @@ export default function decorate(block) {
     dt.className = 'spec-key';
 
     if (isSchema) {
+      dt.classList.add('spec-key-schema');
+
+      const source = document.createElement('div');
+      source.className = 'spec-key-source';
+      if (keyCell) source.append(...keyCell.childNodes);
+      else source.textContent = '—';
+      dt.append(source);
+
       const match = keyRaw.match(/^(.+?)\s*:\s*(.+)$/);
-      const [, fieldName, fieldType] = match || [null, keyRaw, null];
-      const name = document.createElement('code');
-      name.className = 'spec-key-name';
-      name.textContent = fieldName;
-      dt.append(name);
-      if (fieldType) {
+      if (match) {
+        const [, fieldName, fieldType] = match;
+        dt.classList.add('spec-key-split');
+
+        const presentation = document.createElement('span');
+        presentation.className = 'spec-key-presentation';
+        presentation.setAttribute('aria-hidden', 'true');
+
+        const name = document.createElement('code');
+        name.className = 'spec-key-name';
+        name.textContent = fieldName;
+
         const type = document.createElement('span');
         type.className = 'spec-key-type';
         type.textContent = fieldType;
-        dt.append(type);
+
+        presentation.append(name, type);
+        dt.append(presentation);
       }
+    } else if (keyCell) {
+      dt.append(...keyCell.childNodes);
     } else {
-      dt.textContent = keyRaw || '—';
+      dt.textContent = '—';
     }
 
     const dd = document.createElement('dd');

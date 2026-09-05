@@ -17,6 +17,18 @@
   color: var(--ink);
 }
 
+.spec-key > :first-child {
+  margin-top: 0;
+}
+
+.spec-key > :last-child {
+  margin-bottom: 0;
+}
+
+.spec-key > :is(p, .prosemirror-editor) {
+  color: inherit;
+}
+
 .spec-value {
   margin: 0;
   color: var(--ink-soft);
@@ -33,29 +45,66 @@
 
 /* schema variant: mono field name + inline type hint */
 .spec.schema .spec-key {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6em;
   font-family: var(--mono-font-family);
   font-weight: 600;
 }
 
-.spec.schema .spec-key-name {
+.spec.schema .spec-key-schema {
   padding: 0;
   background: none;
   color: var(--accent-deep);
 }
 
-.spec.schema .spec-key-type {
-  font-family: var(--mono-font-family);
+.spec-key-presentation {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6em;
+}
+
+.spec-key-name {
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+
+.spec-key-type {
   font-size: 0.78em;
   font-weight: 500;
   color: var(--ink-dim);
 }
 
-.spec.schema .spec-key-type::before {
+.spec-key-type::before {
   content: '· ';
+}
+
+/* Keep the authored field—and therefore its Canvas marker—exactly once.
+   The split label is a generated visual presentation; Canvas swaps back to
+   the real field as soon as its inline editor mounts. */
+.spec-key-split .spec-key-source {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.spec-key-split:has(.prosemirror-editor) .spec-key-source {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+
+.spec-key-split:has(.prosemirror-editor) .spec-key-presentation {
+  display: none;
 }
 
 @media (width >= 600px) {

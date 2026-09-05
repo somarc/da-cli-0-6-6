@@ -4,45 +4,154 @@
  *   row 1 (optional): single cell — eyebrow text
  *   row 2: single cell — rich text (h1, paragraph, optional ul of proof
  *          points, optional CTA paragraph of link(s))
- * No photography. The right-hand motif is procedural: a stack of ledger
- * rule rows with mono evidence figures, plus an inline SVG release stamp,
- * both built here rather than authored or loaded as an image.
+ * No photography. The right-hand motif is a transparent Lottie diagram:
+ * EDS as the gravitational mass, the official render loop close in, and
+ * da-cli's highly elliptical operations loop crossing explicit receipt gates.
+ * A semantic, static SVG fallback is always present; Lottie progressively
+ * replaces it after the hero copy has rendered.
  */
 
-const LEDGER_FIGURES = ['0x41d2', '128.06', '00041', 'READ', '0x2f9', '44.02', '0x18b', 'DRY-RUN', '00007', '0xa61'];
-const LEDGER_WIDTHS = [82, 58, 71, 40, 64, 50, 76, 46];
+const LOTTIE_WEB_SRC = '/scripts/vendor/lottie-light-5.12.2.min.js';
+const DEFAULT_LOTTIE_PATH = '/media/outer-loop-hero.lottie.json';
+const REDUCED_MOTION_FRAME = 330;
 
-function buildMotif() {
-  const motif = document.createElement('div');
-  motif.className = 'hero-motif';
-  motif.setAttribute('aria-hidden', 'true');
+let lottieLoader;
 
-  const ledger = document.createElement('div');
-  ledger.className = 'hero-ledger';
-  LEDGER_WIDTHS.forEach((w, i) => {
-    const row = document.createElement('div');
-    row.className = 'hero-ledger-row';
-    const bar = document.createElement('span');
-    bar.className = 'hero-ledger-bar';
-    bar.style.setProperty('--w', `${w}%`);
-    const figure = document.createElement('span');
-    figure.className = 'hero-ledger-figure';
-    figure.textContent = LEDGER_FIGURES[i % LEDGER_FIGURES.length];
-    row.append(bar, figure);
-    ledger.append(row);
+function loadLottieWeb() {
+  if (window.lottie) return Promise.resolve(window.lottie);
+  if (lottieLoader) return lottieLoader;
+
+  lottieLoader = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = `${window.hlx?.codeBasePath || ''}${LOTTIE_WEB_SRC}`;
+    script.async = true;
+    script.onload = () => resolve(window.lottie);
+    script.onerror = reject;
+    document.head.append(script);
   });
 
-  const stamp = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  stamp.classList.add('hero-stamp');
-  stamp.setAttribute('viewBox', '0 0 120 120');
-  stamp.innerHTML = [
-    '<circle cx="60" cy="60" r="54" />',
-    '<circle cx="60" cy="60" r="45" />',
-    '<text x="60" y="57" text-anchor="middle" class="hero-stamp-version">0.6.6</text>',
-    '<text x="60" y="75" text-anchor="middle" class="hero-stamp-sub">RECEIPT PRINTED</text>',
-  ].join('');
+  return lottieLoader;
+}
 
-  motif.append(ledger, stamp);
+function buildFallback() {
+  const fallback = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  fallback.classList.add('hero-loop-fallback');
+  fallback.setAttribute('viewBox', '0 0 800 800');
+  fallback.setAttribute('aria-hidden', 'true');
+  fallback.innerHTML = [
+    '<ellipse class="hero-loop-guide" cx="400" cy="400" rx="337" ry="151" transform="rotate(-18 400 400)" />',
+    '<ellipse class="hero-loop-outer" cx="400" cy="400" rx="318" ry="132" transform="rotate(-18 400 400)" />',
+    '<circle class="hero-loop-inner" cx="400" cy="400" r="106" />',
+    '<circle class="hero-loop-field" cx="400" cy="400" r="143" />',
+    '<circle class="hero-loop-core" cx="400" cy="400" r="89" />',
+    '<circle class="hero-loop-core-ring" cx="400" cy="400" r="66" />',
+    '<circle class="hero-loop-core-dot" cx="400" cy="400" r="7" />',
+    '<circle class="hero-loop-pilot" cx="496" cy="203" r="13" />',
+    '<g class="hero-loop-receipts">',
+    '<rect x="677.4" y="284.7" width="50" height="34" rx="2" transform="rotate(72 702.4 301.7)" />',
+    '<rect x="561.5" y="442.6" width="50" height="34" rx="2" transform="rotate(132 586.5 459.6)" />',
+    '<rect x="259.1" y="540.9" width="50" height="34" rx="2" transform="rotate(192 284.1 557.9)" />',
+    '<rect x="72.6" y="481.3" width="50" height="34" rx="2" transform="rotate(252 97.6 498.3)" />',
+    '<rect x="188.5" y="323.4" width="50" height="34" rx="2" transform="rotate(312 213.5 340.4)" />',
+    '<rect x="490.9" y="225.1" width="50" height="34" rx="2" transform="rotate(372 515.9 242.1)" />',
+    '</g>',
+  ].join('');
+  return fallback;
+}
+
+function buildMotif(path) {
+  const motif = document.createElement('div');
+  motif.className = 'hero-motif';
+
+  const stage = document.createElement('div');
+  stage.className = 'hero-lottie-stage';
+  stage.setAttribute('role', 'img');
+  stage.setAttribute('aria-label', 'EDS at the center of a close render loop and a deliberate elliptical operations loop, with receipts at each verified boundary crossing.');
+  stage.append(buildFallback());
+
+  const mass = document.createElement('div');
+  mass.className = 'hero-mass-label';
+  mass.innerHTML = '<strong>EDS</strong><span>system mass</span>';
+
+  const innerLabel = document.createElement('span');
+  innerLabel.className = 'hero-loop-label hero-loop-label-inner';
+  innerLabel.textContent = 'render loop';
+
+  const outerLabel = document.createElement('span');
+  outerLabel.className = 'hero-loop-label hero-loop-label-outer';
+  outerLabel.textContent = 'operations loop';
+
+  const receiptLabel = document.createElement('span');
+  receiptLabel.className = 'hero-loop-label hero-loop-label-receipt';
+  receiptLabel.textContent = 'receipt';
+
+  const motionToggle = document.createElement('button');
+  motionToggle.className = 'hero-motion-toggle';
+  motionToggle.type = 'button';
+  motionToggle.textContent = 'Pause orbit';
+  motionToggle.disabled = true;
+
+  motif.append(stage, mass, innerLabel, outerLabel, receiptLabel, motionToggle);
+
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motionPreference.matches) {
+    motionToggle.remove();
+    return motif;
+  }
+
+  loadLottieWeb()
+    .then((lottie) => {
+      if (!lottie) throw new Error('Lottie player unavailable');
+      const animation = lottie.loadAnimation({
+        container: stage,
+        renderer: 'svg',
+        loop: true,
+        autoplay: false,
+        path,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid meet',
+          progressiveLoad: true,
+        },
+      });
+      animation.addEventListener('DOMLoaded', () => {
+        stage.querySelector('.hero-loop-fallback')?.remove();
+        motif.classList.add('hero-lottie-ready');
+        let userPaused = false;
+        let observer;
+        motionToggle.disabled = false;
+        motionToggle.addEventListener('click', () => {
+          userPaused = !userPaused;
+          if (userPaused) animation.pause();
+          else animation.play();
+          motionToggle.textContent = userPaused ? 'Play orbit' : 'Pause orbit';
+        });
+        const stopForReducedMotion = (event) => {
+          if (!event.matches) return;
+          userPaused = true;
+          observer?.disconnect();
+          animation.goToAndStop(REDUCED_MOTION_FRAME, true);
+          motionToggle.remove();
+          motionPreference.removeEventListener('change', stopForReducedMotion);
+        };
+        motionPreference.addEventListener('change', stopForReducedMotion);
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !userPaused) animation.play();
+            else animation.pause();
+          });
+        }, { threshold: 0.15 });
+        observer.observe(motif);
+      });
+      animation.addEventListener('data_failed', () => {
+        motif.classList.add('hero-lottie-failed');
+        motionToggle.remove();
+      });
+    })
+    .catch(() => {
+      motif.classList.add('hero-lottie-failed');
+      motionToggle.remove();
+    });
+
   return motif;
 }
 
@@ -58,31 +167,59 @@ function isCtaParagraph(p) {
   return nodes.every((n) => (n.nodeType === 3 && !n.textContent.trim()) || (n.nodeType === 1 && n.tagName === 'A'));
 }
 
+function wrapAuthoredField(field, className) {
+  const owner = document.createElement('div');
+  owner.className = className;
+  field.replaceWith(owner);
+  owner.append(field);
+  return owner;
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
   const contentRow = rows.length > 1 ? rows[1] : rows[0];
   const eyebrowRow = rows.length > 1 ? rows[0] : null;
+  const lottieLink = block.querySelector('a[href$=".lottie.json"]');
+  const lottiePath = lottieLink?.href || DEFAULT_LOTTIE_PATH;
+  if (lottieLink) {
+    const parent = lottieLink.parentElement;
+    if (parent?.textContent.trim() === lottieLink.textContent.trim()) parent.remove();
+    else lottieLink.remove();
+  }
 
-  const content = document.createElement('div');
-  content.className = 'hero-content';
+  const intro = document.createElement('div');
+  intro.className = 'hero-intro';
 
-  const eyebrowText = eyebrowRow?.children[0]?.textContent.trim();
-  if (eyebrowText) {
-    const eyebrow = document.createElement('p');
+  const body = document.createElement('div');
+  body.className = 'hero-body';
+
+  const eyebrowCell = eyebrowRow?.children[0];
+  if (eyebrowCell?.textContent.trim()) {
+    const eyebrow = document.createElement('div');
     eyebrow.className = 'hero-eyebrow';
-    eyebrow.textContent = eyebrowText;
-    content.append(eyebrow);
+    eyebrow.append(...eyebrowCell.childNodes);
+    intro.append(eyebrow);
   }
 
   const contentCell = contentRow?.children[0];
   if (contentCell) {
-    while (contentCell.firstChild) content.append(contentCell.firstChild);
+    const nodes = [...contentCell.childNodes];
+    const heading = nodes.find((node) => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H1');
+    let headingReached = false;
+    nodes.forEach((node) => {
+      if (node === heading) headingReached = true;
+      if (heading && (!headingReached || node === heading)) {
+        intro.append(node);
+      } else {
+        body.append(node);
+      }
+    });
   }
 
-  content.querySelectorAll(':scope > ul').forEach((ul) => ul.classList.add('hero-proof'));
-  content.querySelectorAll(':scope > p').forEach((p) => {
-    if (isCtaParagraph(p)) p.classList.add('hero-ctas');
+  body.querySelectorAll(':scope > ul').forEach((ul) => wrapAuthoredField(ul, 'hero-proof'));
+  body.querySelectorAll(':scope > p').forEach((p) => {
+    if (isCtaParagraph(p)) wrapAuthoredField(p, 'hero-ctas');
   });
 
-  block.replaceChildren(content, buildMotif());
+  block.replaceChildren(intro, buildMotif(lottiePath), body);
 }

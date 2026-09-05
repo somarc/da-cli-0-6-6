@@ -3,12 +3,22 @@
 .hero {
   position: relative;
   display: grid;
+  grid-template-areas:
+    'intro'
+    'motif'
+    'body';
   grid-template-columns: 1fr;
-  gap: var(--space-l);
+  gap: var(--space-m);
   align-items: center;
-  padding: var(--space-xl) var(--space-s) var(--space-l);
+  padding: var(--space-l) var(--space-s) var(--space-l);
   background-color: var(--paper);
   overflow: hidden;
+}
+
+@media (width >= 900px) and (height >= 700px) {
+  .hero {
+    min-height: min(760px, calc(100svh - var(--nav-height)));
+  }
 }
 
 .hero::after {
@@ -22,9 +32,13 @@
   background-position: center bottom;
 }
 
-.hero-content {
+.hero-intro,
+.hero-body {
   max-width: 640px;
 }
+
+.hero-intro { grid-area: intro; }
+.hero-body { grid-area: body; }
 
 .hero-eyebrow {
   margin: 0 0 var(--space-s);
@@ -36,19 +50,38 @@
   color: var(--accent-deep);
 }
 
-.hero-content h1 {
+.hero-eyebrow > :first-child,
+.hero-proof > :first-child,
+.hero-ctas > :first-child {
   margin-top: 0;
-  font-size: var(--heading-font-size-xxl);
 }
 
-.hero-content p {
+.hero-eyebrow > :last-child,
+.hero-proof > :last-child,
+.hero-ctas > :last-child {
+  margin-bottom: 0;
+}
+
+.hero-intro h1 {
+  margin-top: 0;
+  max-width: 9ch;
+  font-size: clamp(3.4rem, 7.5vw, 6.8rem);
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+}
+
+.hero-body > p {
   color: var(--ink-soft);
   max-width: 46ch;
 }
 
 .hero-proof {
-  list-style: none;
   margin: var(--space-m) 0;
+}
+
+.hero-proof :is(ul, ol) {
+  list-style: none;
+  margin: 0;
   padding: 0;
   display: grid;
   gap: var(--space-xs);
@@ -77,78 +110,198 @@
   margin-top: var(--space-m);
 }
 
-/* procedural ledger + stamp motif — decorative, aria-hidden */
-.hero-motif {
-  position: relative;
-  display: none;
-}
-
-.hero-ledger {
-  display: grid;
-  gap: 10px;
-  padding: var(--space-m);
-  border: var(--hairline) solid var(--rule);
-  border-radius: var(--radius-m);
-  background-color: var(--paper-deep);
-}
-
-.hero-ledger-row {
+.hero-ctas > :is(p, .prosemirror-editor),
+.hero-ctas [class~='ProseMirror'] {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-s);
+  margin: 0;
 }
 
-.hero-ledger-bar {
-  width: var(--w, 60%);
-  height: 8px;
-  border-radius: 2px;
-  background-color: var(--rule);
+/* outer-loop Lottie — semantic diagram with a static SVG fallback */
+.hero-motif {
+  grid-area: motif;
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  width: min(100%, 310px);
+  margin: 0 auto;
+  isolation: isolate;
+  contain: layout paint;
 }
 
-.hero-ledger-figure {
-  margin-left: auto;
-  font-family: var(--mono-font-family);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-dim);
-  white-space: nowrap;
+.hero-lottie-stage,
+.hero-lottie-stage > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.hero-stamp {
+.hero-lottie-stage {
   position: absolute;
-  right: -8px;
-  bottom: -22px;
-  width: 108px;
-  height: 108px;
-  transform: rotate(-11deg);
-  color: var(--stamp-red);
+  inset: 0;
 }
 
-.hero-stamp circle {
+.hero-loop-fallback {
+  overflow: visible;
+}
+
+.hero-loop-guide,
+.hero-loop-outer,
+.hero-loop-inner,
+.hero-loop-field,
+.hero-loop-core-ring {
   fill: none;
-  stroke: currentcolor;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-loop-guide,
+.hero-loop-field {
+  stroke: var(--rule-soft);
   stroke-width: 2;
 }
 
-.hero-stamp circle:first-of-type {
-  stroke-dasharray: 4 3;
+.hero-loop-outer {
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-dasharray: 9 11;
 }
 
-.hero-stamp text {
-  fill: currentcolor;
+.hero-loop-inner {
+  stroke: var(--ink-ok);
+  stroke-width: 3;
+  stroke-dasharray: 9 11;
+}
+
+.hero-loop-core {
+  fill: var(--ink);
+}
+
+.hero-loop-core-ring {
+  stroke: var(--paper-deep);
+  stroke-width: 20;
+}
+
+.hero-loop-core-dot {
+  fill: var(--accent);
+}
+
+.hero-loop-pilot {
+  fill: var(--accent);
+  stroke: var(--paper);
+  stroke-width: 4;
+}
+
+.hero-loop-receipts rect {
+  fill: var(--paper);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.hero-mass-label {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 96px;
+  transform: translate(-50%, -50%);
+  color: var(--paper);
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-mass-label strong {
   font-family: var(--mono-font-family);
+  font-size: clamp(1.3125rem, 3vw, 1.75rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
 }
 
-.hero-stamp-version {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.hero-stamp-sub {
-  font-size: 6.5px;
-  font-weight: 600;
+.hero-mass-label span {
+  margin-top: 7px;
+  font-family: var(--mono-font-family);
+  font-size: 0.5rem;
   letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.66;
+}
+
+.hero-loop-label {
+  position: absolute;
+  z-index: 2;
+  padding: 0.16em 0.55em;
+  border: var(--hairline) solid currentcolor;
+  border-radius: 2px;
+  background: rgb(246 242 231 / 90%);
+  font-family: var(--mono-font-family);
+  font-size: clamp(0.5rem, 1.5vw, 0.6875rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero-loop-label-inner {
+  top: 29%;
+  left: 53%;
+  color: var(--ink-ok);
+}
+
+.hero-loop-label-outer {
+  top: 13%;
+  left: 13%;
+  color: var(--accent-deep);
+  transform: rotate(-18deg);
+}
+
+.hero-loop-label-receipt {
+  right: 5%;
+  bottom: 31%;
+  color: var(--stamp-red);
+  transform: rotate(5deg);
+}
+
+.hero-motion-toggle {
+  position: absolute;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+  z-index: 3;
+  min-width: 44px;
+  min-height: 44px;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-s);
+  padding: 0.45em 0.7em;
+  background: rgb(246 242 231 / 92%);
+  color: var(--ink-soft);
+  font-family: var(--mono-font-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.hero-motion-toggle:hover,
+.hero-motion-toggle:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+
+.hero-motion-toggle:disabled {
+  visibility: hidden;
+}
+
+.hero-lottie-failed .hero-lottie-stage {
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop-fallback {
+    display: block;
+  }
 }
 
 @media (width >= 600px) {
@@ -157,22 +310,27 @@
   }
 
   .hero-motif {
-    display: block;
-    max-width: 320px;
-    margin-top: var(--space-m);
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
   }
 }
 
 @media (width >= 900px) {
   .hero {
+    grid-template-areas:
+      'intro motif'
+      'body motif';
     grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-    gap: var(--space-xl);
+    gap: var(--space-s) var(--space-xl);
+    align-content: center;
     padding: var(--space-xl) var(--space-m);
   }
 
   .hero-motif {
+    width: 100%;
     margin-top: 0;
-    max-width: none;
+    max-width: 560px;
   }
 }
 
@@ -180,5 +338,13 @@
   .hero {
     padding-left: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
     padding-right: max(var(--space-xl), calc((100% - 1200px) / 2 + var(--space-m)));
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-loop-label,
+  .hero-motion-toggle {
+    background: Canvas;
+    color: CanvasText;
   }
 }

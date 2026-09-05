@@ -64,13 +64,19 @@ header nav a:any-link {
 /* hamburger */
 header nav .nav-hamburger {
   grid-area: hamburger;
-  height: 22px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
 }
 
 header nav .nav-hamburger button {
-  height: 22px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -183,6 +189,13 @@ header nav .nav-sections ul {
 header nav .nav-sections ul > li {
   font-weight: 500;
   padding: var(--space-xs) 0;
+}
+
+header nav .nav-sections a,
+header nav .nav-tools a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 header nav .nav-sections ul > li > ul {

@@ -7,3 +7,6 @@ package-lock.json
 test/*
 drafts/
 favicon-source.png
+tools/
+certify.yaml
+sync-block-collection.sh

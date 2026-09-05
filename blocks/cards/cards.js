@@ -76,16 +76,16 @@ export default function decorate(block) {
     li.className = 'cards-card';
 
     if (titleText) {
-      const title = document.createElement('h3');
-      title.className = 'cards-card-title';
+      let title;
       if (heading) {
-        // preserve the authored anchor id and inline markup (<code>, …)
-        if (heading.id) title.id = heading.id;
-        title.append(...heading.childNodes);
+        title = heading;
       } else {
-        // bare text cells arrive wrapped in a <p>; avoid nesting it
-        title.textContent = titleText;
+        title = document.createElement('div');
+        title.setAttribute('role', 'heading');
+        title.setAttribute('aria-level', '3');
+        title.append(...cells[0].childNodes);
       }
+      title.classList.add('cards-card-title');
       li.append(title);
     }
 

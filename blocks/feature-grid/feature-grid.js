@@ -26,11 +26,11 @@ export default function decorate(block) {
     item.append(index);
 
     if (hasTitle) {
-      const title = document.createElement('h3');
+      const title = document.createElement('div');
       title.className = 'feature-grid-title';
-      // titles are short plain text; avoid nesting the auto-wrapped <p>
-      // a bare text cell gets from wrapTextNodes inside a heading
-      title.textContent = titleCell.textContent.trim();
+      title.setAttribute('role', 'heading');
+      title.setAttribute('aria-level', '3');
+      title.append(...titleCell.childNodes);
       item.append(title);
     }
 

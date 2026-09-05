@@ -68,6 +68,18 @@
   color: var(--ink);
 }
 
+.pipeline-id > :first-child {
+  margin-top: 0;
+}
+
+.pipeline-id > :last-child {
+  margin-bottom: 0;
+}
+
+.pipeline-id > :is(p, .prosemirror-editor) {
+  color: inherit;
+}
+
 .pipeline-desc {
   margin-top: var(--space-xs);
   color: var(--ink-soft);
@@ -98,13 +110,225 @@
   font-size: 11px;
 }
 
-.pipeline-dep {
+.pipeline-deps-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.pipeline-deps-source :is(p, ul, ol) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pipeline-deps-source :is(p, li) {
   padding: 0.1em 0.5em;
   border: var(--hairline) solid var(--paper-line);
   border-radius: var(--radius-s);
   background-color: var(--paper-deep);
   font-family: var(--mono-font-family);
   color: var(--ink-soft);
+}
+
+/* Outer-loop variant: the authored step list stays the semantic source while
+   a static systems map makes the same six-gate contract visible at a glance. */
+.pipeline.outer-loop {
+  --pipeline-orbit-list-rule: var(--rule);
+  --pipeline-orbit-ordinal-surface: var(--paper);
+  --pipeline-orbit-ordinal-ink: var(--accent-deep);
+  --pipeline-orbit-ordinal-border: var(--accent);
+
+  container: pipeline-orbit / inline-size;
+}
+
+.dark .pipeline.outer-loop {
+  --pipeline-orbit-list-rule: var(--panel-line);
+  --pipeline-orbit-ordinal-surface: var(--panel);
+  --pipeline-orbit-ordinal-ink: var(--panel-text);
+  --pipeline-orbit-ordinal-border: var(--panel-accent);
+}
+
+.pipeline-orbit-layout {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.pipeline-orbit-figure {
+  position: relative;
+  align-self: start;
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: var(--space-s);
+  border: var(--hairline) solid var(--panel-line);
+  background:
+    radial-gradient(circle at 50% 50%, rgb(143 178 255 / 8%), transparent 48%),
+    var(--panel-raise);
+  isolation: isolate;
+}
+
+.pipeline-orbit-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pipeline-orbit-guide,
+.pipeline-orbit-track,
+.pipeline-orbit-inner {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.pipeline-orbit-guide {
+  stroke: var(--panel-line);
+  stroke-width: 1;
+}
+
+.pipeline-orbit-track {
+  stroke: var(--panel-accent);
+  stroke-width: 2;
+  stroke-dasharray: 7 9;
+}
+
+.pipeline-orbit-inner {
+  stroke: var(--panel-ok);
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+}
+
+.pipeline-orbit-core {
+  fill: var(--panel-text);
+}
+
+.pipeline-orbit-core-label,
+.pipeline-orbit-inner-label,
+.pipeline-orbit-number,
+.pipeline-orbit-node-label {
+  font-family: var(--mono-font-family);
+}
+
+.pipeline-orbit-core-label {
+  fill: var(--panel);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.pipeline-orbit-inner-label {
+  fill: var(--panel-ok);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pipeline-orbit-ticket {
+  fill: var(--panel);
+  stroke: var(--panel-accent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.pipeline-orbit-number {
+  fill: var(--panel-text);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.pipeline-orbit-node-label {
+  fill: var(--panel-text);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.pipeline-orbit-caption {
+  position: absolute;
+  inset: auto var(--space-s) var(--space-s) auto;
+  color: var(--panel-text-dim);
+  font-family: var(--mono-font-family);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pipeline.outer-loop .pipeline-steps {
+  border-block-start: 2px solid var(--pipeline-orbit-list-rule);
+}
+
+.pipeline.outer-loop .pipeline-step {
+  gap: var(--space-s);
+  padding: var(--space-s) 0;
+  border-block-end: var(--hairline) solid var(--pipeline-orbit-list-rule);
+}
+
+.pipeline.outer-loop .pipeline-step:last-child {
+  padding-block-end: var(--space-m);
+}
+
+.pipeline.outer-loop .pipeline-step:not(:last-child) .pipeline-marker::after {
+  content: none;
+}
+
+.pipeline.outer-loop .pipeline-ordinal {
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  border-color: var(--pipeline-orbit-ordinal-border);
+  background: var(--pipeline-orbit-ordinal-surface);
+  color: var(--pipeline-orbit-ordinal-ink);
+}
+
+@container pipeline-orbit (width >= 52rem) {
+  .pipeline-orbit-layout {
+    grid-template-columns: minmax(20rem, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 6cqi, 5rem);
+    align-items: start;
+  }
+
+  .pipeline-orbit-figure {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-m));
+  }
+
+  .pipeline.outer-loop .pipeline-step {
+    padding: var(--space-m) 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .pipeline-orbit-figure,
+  .pipeline-orbit-ticket {
+    background: Canvas;
+    fill: Canvas;
+    stroke: CanvasText;
+  }
+
+  .pipeline-orbit-track,
+  .pipeline-orbit-inner,
+  .pipeline-orbit-guide {
+    stroke: CanvasText;
+  }
+
+  .pipeline-orbit-core {
+    fill: CanvasText;
+  }
+
+  .pipeline-orbit-core-label {
+    fill: Canvas;
+  }
+
+  .pipeline-orbit-inner-label,
+  .pipeline-orbit-number,
+  .pipeline-orbit-node-label {
+    fill: CanvasText;
+  }
 }
 
 @media (width >= 600px) {
