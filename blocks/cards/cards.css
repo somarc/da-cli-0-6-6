@@ -71,6 +71,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
+  min-height: 44px;
   font-weight: 600;
   font-size: var(--body-font-size-s);
 }
