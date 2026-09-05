@@ -26,6 +26,8 @@ steps:
     command: preview page /review
   - id: preview-ledger
     command: preview page /ledger
+  - id: preview-evidence
+    command: preview page /evidence
   - id: preview-riverboat
     command: preview page /riverboat
   - id: preview-nav
@@ -45,6 +47,9 @@ steps:
   - id: audit-ledger
     command: audit full /ledger --format json
     depends_on: [preview-ledger, preview-nav, preview-footer]
+  - id: audit-evidence
+    command: audit full /evidence --format json
+    depends_on: [preview-evidence, preview-nav, preview-footer]
   - id: audit-riverboat
     command: audit full /riverboat --format json
     depends_on: [preview-riverboat, preview-nav, preview-footer]
@@ -54,4 +59,4 @@ steps:
 
   - id: freshness
     command: site freshness / --include-shared --boundary preview --fail-on preview-stale,preview-missing,source-missing,probe-failed,unknown --format json
-    depends_on: [audit-index, audit-review, audit-ledger, audit-riverboat, audit-receipts]
+    depends_on: [audit-index, audit-review, audit-ledger, audit-evidence, audit-riverboat, audit-receipts]

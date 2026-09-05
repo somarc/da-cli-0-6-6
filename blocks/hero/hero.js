@@ -13,7 +13,7 @@
 
 const LOTTIE_WEB_SRC = '/scripts/vendor/lottie-light-5.12.2.min.js';
 const DEFAULT_LOTTIE_PATH = '/media/outer-loop-hero.lottie.json';
-const REDUCED_MOTION_FRAME = 150;
+const REDUCED_MOTION_FRAME = 330;
 
 let lottieLoader;
 
@@ -48,10 +48,12 @@ function buildFallback() {
     '<circle class="hero-loop-core-dot" cx="400" cy="400" r="7" />',
     '<circle class="hero-loop-pilot" cx="496" cy="203" r="13" />',
     '<g class="hero-loop-receipts">',
-    '<rect x="677" y="285" width="50" height="34" rx="2" transform="rotate(72 702 302)" />',
-    '<rect x="416" y="509" width="50" height="34" rx="2" transform="rotate(162 441 526)" />',
-    '<rect x="73" y="481" width="50" height="34" rx="2" transform="rotate(252 98 498)" />',
-    '<rect x="334" y="258" width="50" height="34" rx="2" transform="rotate(342 359 275)" />',
+    '<rect x="677.4" y="284.7" width="50" height="34" rx="2" transform="rotate(72 702.4 301.7)" />',
+    '<rect x="561.5" y="442.6" width="50" height="34" rx="2" transform="rotate(132 586.5 459.6)" />',
+    '<rect x="259.1" y="540.9" width="50" height="34" rx="2" transform="rotate(192 284.1 557.9)" />',
+    '<rect x="72.6" y="481.3" width="50" height="34" rx="2" transform="rotate(252 97.6 498.3)" />',
+    '<rect x="188.5" y="323.4" width="50" height="34" rx="2" transform="rotate(312 213.5 340.4)" />',
+    '<rect x="490.9" y="225.1" width="50" height="34" rx="2" transform="rotate(372 515.9 242.1)" />',
     '</g>',
   ].join('');
   return fallback;
@@ -165,6 +167,14 @@ function isCtaParagraph(p) {
   return nodes.every((n) => (n.nodeType === 3 && !n.textContent.trim()) || (n.nodeType === 1 && n.tagName === 'A'));
 }
 
+function wrapAuthoredField(field, className) {
+  const owner = document.createElement('div');
+  owner.className = className;
+  field.replaceWith(owner);
+  owner.append(field);
+  return owner;
+}
+
 export default function decorate(block) {
   const rows = [...block.children];
   const contentRow = rows.length > 1 ? rows[1] : rows[0];
@@ -177,26 +187,39 @@ export default function decorate(block) {
     else lottieLink.remove();
   }
 
-  const content = document.createElement('div');
-  content.className = 'hero-content';
+  const intro = document.createElement('div');
+  intro.className = 'hero-intro';
 
-  const eyebrowText = eyebrowRow?.children[0]?.textContent.trim();
-  if (eyebrowText) {
-    const eyebrow = document.createElement('p');
+  const body = document.createElement('div');
+  body.className = 'hero-body';
+
+  const eyebrowCell = eyebrowRow?.children[0];
+  if (eyebrowCell?.textContent.trim()) {
+    const eyebrow = document.createElement('div');
     eyebrow.className = 'hero-eyebrow';
-    eyebrow.textContent = eyebrowText;
-    content.append(eyebrow);
+    eyebrow.append(...eyebrowCell.childNodes);
+    intro.append(eyebrow);
   }
 
   const contentCell = contentRow?.children[0];
   if (contentCell) {
-    while (contentCell.firstChild) content.append(contentCell.firstChild);
+    const nodes = [...contentCell.childNodes];
+    const heading = nodes.find((node) => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H1');
+    let headingReached = false;
+    nodes.forEach((node) => {
+      if (node === heading) headingReached = true;
+      if (heading && (!headingReached || node === heading)) {
+        intro.append(node);
+      } else {
+        body.append(node);
+      }
+    });
   }
 
-  content.querySelectorAll(':scope > ul').forEach((ul) => ul.classList.add('hero-proof'));
-  content.querySelectorAll(':scope > p').forEach((p) => {
-    if (isCtaParagraph(p)) p.classList.add('hero-ctas');
+  body.querySelectorAll(':scope > ul').forEach((ul) => wrapAuthoredField(ul, 'hero-proof'));
+  body.querySelectorAll(':scope > p').forEach((p) => {
+    if (isCtaParagraph(p)) wrapAuthoredField(p, 'hero-ctas');
   });
 
-  block.replaceChildren(content, buildMotif(lottiePath));
+  block.replaceChildren(intro, buildMotif(lottiePath), body);
 }

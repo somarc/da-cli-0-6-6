@@ -3,10 +3,14 @@
 .hero {
   position: relative;
   display: grid;
+  grid-template-areas:
+    'intro'
+    'motif'
+    'body';
   grid-template-columns: 1fr;
-  gap: var(--space-l);
+  gap: var(--space-m);
   align-items: center;
-  padding: var(--space-xl) var(--space-s) var(--space-l);
+  padding: var(--space-l) var(--space-s) var(--space-l);
   background-color: var(--paper);
   overflow: hidden;
 }
@@ -28,9 +32,13 @@
   background-position: center bottom;
 }
 
-.hero-content {
+.hero-intro,
+.hero-body {
   max-width: 640px;
 }
+
+.hero-intro { grid-area: intro; }
+.hero-body { grid-area: body; }
 
 .hero-eyebrow {
   margin: 0 0 var(--space-s);
@@ -42,7 +50,19 @@
   color: var(--accent-deep);
 }
 
-.hero-content h1 {
+.hero-eyebrow > :first-child,
+.hero-proof > :first-child,
+.hero-ctas > :first-child {
+  margin-top: 0;
+}
+
+.hero-eyebrow > :last-child,
+.hero-proof > :last-child,
+.hero-ctas > :last-child {
+  margin-bottom: 0;
+}
+
+.hero-intro h1 {
   margin-top: 0;
   max-width: 9ch;
   font-size: clamp(3.4rem, 7.5vw, 6.8rem);
@@ -50,14 +70,18 @@
   line-height: 0.92;
 }
 
-.hero-content p {
+.hero-body > p {
   color: var(--ink-soft);
   max-width: 46ch;
 }
 
 .hero-proof {
-  list-style: none;
   margin: var(--space-m) 0;
+}
+
+.hero-proof :is(ul, ol) {
+  list-style: none;
+  margin: 0;
   padding: 0;
   display: grid;
   gap: var(--space-xs);
@@ -86,13 +110,22 @@
   margin-top: var(--space-m);
 }
 
+.hero-ctas > :is(p, .prosemirror-editor),
+.hero-ctas [class~='ProseMirror'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin: 0;
+}
+
 /* outer-loop Lottie — semantic diagram with a static SVG fallback */
 .hero-motif {
+  grid-area: motif;
   position: relative;
   display: block;
   aspect-ratio: 1;
-  width: min(100%, 330px);
-  margin: var(--space-m) auto 0;
+  width: min(100%, 310px);
+  margin: 0 auto;
   isolation: isolate;
   contain: layout paint;
 }
@@ -279,14 +312,18 @@
   .hero-motif {
     width: 100%;
     max-width: 430px;
-    margin: var(--space-m) auto 0;
+    margin: 0 auto;
   }
 }
 
 @media (width >= 900px) {
   .hero {
+    grid-template-areas:
+      'intro motif'
+      'body motif';
     grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-    gap: var(--space-xl);
+    gap: var(--space-s) var(--space-xl);
+    align-content: center;
     padding: var(--space-xl) var(--space-m);
   }
 

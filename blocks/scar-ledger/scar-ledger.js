@@ -50,9 +50,10 @@ export default function decorate(block) {
     moveContent(scarCell, title);
 
     const stateText = stateCell?.textContent.trim() || 'unclassified';
-    const state = document.createElement('span');
+    const state = document.createElement('div');
     state.className = `chip ${chipClassFor(stateText) || 'chip-neutral'} scar-ledger-state`;
-    state.textContent = stateText;
+    if (stateCell) moveContent(stateCell, state);
+    else state.textContent = stateText;
 
     head.append(number, title, state);
 

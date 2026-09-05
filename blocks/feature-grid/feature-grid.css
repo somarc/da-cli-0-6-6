@@ -1,3 +1,7 @@
+.feature-grid {
+  container: feature-grid / inline-size;
+}
+
 .feature-grid-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -25,7 +29,21 @@
 .feature-grid-title {
   margin: 0 0 var(--space-xs);
   font-size: var(--heading-font-size-s);
+  font-weight: 600;
   line-height: 1.3;
+  color: var(--ink);
+}
+
+.feature-grid-title > :first-child {
+  margin-top: 0;
+}
+
+.feature-grid-title > :last-child {
+  margin-bottom: 0;
+}
+
+.feature-grid-title > :is(p, .prosemirror-editor) {
+  color: inherit;
 }
 
 .feature-grid-desc {
@@ -67,4 +85,92 @@
   font-size: clamp(1.55rem, 3vw, 2.5rem);
   letter-spacing: -0.045em;
   line-height: 1;
+}
+
+.feature-grid.metrics .feature-grid-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+}
+
+/* Two operating loops around one site. This is a comparative systems plate,
+   not a reusable card gallery: the third row is the bridge between them. */
+.feature-grid.loops .feature-grid-list {
+  grid-template-columns: 1fr;
+}
+
+.feature-grid.loops .feature-grid-item {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.feature-grid.loops .feature-grid-item::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: auto var(--space-m) var(--space-m) auto;
+  width: 7rem;
+  aspect-ratio: 1;
+  border: 2px dashed var(--ink-ok);
+  border-radius: 50%;
+  opacity: 0.22;
+}
+
+.feature-grid.loops .feature-grid-item:nth-child(2) {
+  background: var(--accent-tint);
+}
+
+.feature-grid.loops .feature-grid-item:nth-child(2)::after {
+  width: min(42%, 12rem);
+  aspect-ratio: 2 / 1;
+  border-color: var(--accent);
+  transform: rotate(-12deg);
+}
+
+.feature-grid.loops .feature-grid-item:nth-child(3) {
+  min-height: 11rem;
+  background: var(--paper-deep);
+}
+
+.feature-grid.loops .feature-grid-item:nth-child(3)::after {
+  width: min(36%, 15rem);
+  height: 1px;
+  aspect-ratio: auto;
+  border: 0;
+  border-block-start: 2px solid var(--stamp-red);
+  border-radius: 0;
+  opacity: 0.45;
+  transform: none;
+}
+
+.feature-grid.loops .feature-grid-item:nth-child(3)::before {
+  content: '→';
+  position: absolute;
+  inset: auto var(--space-m) calc(var(--space-m) - 0.65em) auto;
+  color: var(--stamp-red);
+  font-family: var(--mono-font-family);
+}
+
+.feature-grid.loops .feature-grid-title {
+  max-width: 20ch;
+  font-size: clamp(1.5rem, 5cqi, 2.5rem);
+  letter-spacing: -0.035em;
+}
+
+.feature-grid.loops .feature-grid-desc {
+  position: relative;
+  z-index: 1;
+  max-width: 44ch;
+}
+
+@media (width >= 700px) {
+  .feature-grid.loops .feature-grid-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-grid.loops .feature-grid-item {
+    min-height: 16rem;
+  }
+
+  .feature-grid.loops .feature-grid-item:nth-child(3) {
+    grid-column: 1 / -1;
+  }
 }

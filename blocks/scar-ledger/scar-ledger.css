@@ -61,6 +61,18 @@
   justify-self: start;
 }
 
+.scar-ledger-state > :first-child {
+  margin-top: 0;
+}
+
+.scar-ledger-state > :last-child {
+  margin-bottom: 0;
+}
+
+.scar-ledger-state > :is(p, .prosemirror-editor) {
+  color: inherit;
+}
+
 .scar-ledger-response {
   grid-area: response;
   color: var(--ink-soft);

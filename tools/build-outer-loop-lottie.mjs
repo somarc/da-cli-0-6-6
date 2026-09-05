@@ -5,7 +5,7 @@ import { dirname, join } from 'node:path';
 
 const WIDTH = 800;
 const HEIGHT = 800;
-const FRAMES = 300;
+const FRAMES = 360;
 const FPS = 30;
 const CENTER = [400, 400];
 const ROTATION = -18;
@@ -261,27 +261,29 @@ const layers = [
     transform.p = { a: 1, k: orbitKeyframes(318, 132, 1, 120) };
     return transform;
   })()),
-  receiptLayer(2, 0, 38),
-  receiptLayer(3, 90, 113),
-  receiptLayer(4, 180, 188),
-  receiptLayer(5, 270, 263),
-  shapeLayer(6, 'EDS mass', [
+  receiptLayer(2, 0, 45),
+  receiptLayer(3, 60, 95),
+  receiptLayer(4, 120, 145),
+  receiptLayer(5, 180, 195),
+  receiptLayer(6, 240, 245),
+  receiptLayer(7, 300, 295),
+  shapeLayer(8, 'EDS mass', [
     circle('Core outer', 178, COLORS.ink, 100),
     circle('Core middle', 132, COLORS.paperDeep, 100),
     circle('Core inner', 92, COLORS.ink, 100),
     circle('Core point', 13, COLORS.blue, 100),
   ]),
-  shapeLayer(8, 'Gravity field rings', [
+  shapeLayer(9, 'Gravity field rings', [
     ellipse('Gravity field 01', [238, 238], COLORS.ink, 2, 16),
     ellipse('Gravity field 02', [286, 286], COLORS.ink, 2, 10),
   ]),
-  shapeLayer(9, 'Inner render loop', [
+  shapeLayer(10, 'Inner render loop', [
     ellipse('Inner orbit', [212, 212], COLORS.green, 3, 72, true),
   ]),
-  shapeLayer(10, 'Outer operation loop', [
+  shapeLayer(11, 'Outer operation loop', [
     ellipse('Outer orbit', [636, 264], COLORS.blue, 4, 82, true),
   ], staticTransform(CENTER, [100, 100, 100], ROTATION)),
-  shapeLayer(11, 'Outer loop guide', [
+  shapeLayer(12, 'Outer loop guide', [
     ellipse('Outer guide', [674, 302], COLORS.ink, 2, 10),
   ], staticTransform(CENTER, [100, 100, 100], ROTATION)),
 ];
@@ -298,10 +300,12 @@ const lottie = {
   assets: [],
   layers,
   markers: [
-    { tm: 38, cm: 'receipt-01', dr: 0 },
-    { tm: 113, cm: 'receipt-02', dr: 0 },
-    { tm: 188, cm: 'receipt-03', dr: 0 },
-    { tm: 263, cm: 'receipt-04', dr: 0 },
+    { tm: 45, cm: 'receipt-01', dr: 0 },
+    { tm: 95, cm: 'receipt-02', dr: 0 },
+    { tm: 145, cm: 'receipt-03', dr: 0 },
+    { tm: 195, cm: 'receipt-04', dr: 0 },
+    { tm: 245, cm: 'receipt-05', dr: 0 },
+    { tm: 295, cm: 'receipt-06', dr: 0 },
   ],
 };
 

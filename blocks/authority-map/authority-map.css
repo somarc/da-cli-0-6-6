@@ -1,0 +1,154 @@
+.authority-map {
+  container: authority-map / inline-size;
+}
+
+.authority-map-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--hairline);
+  margin: 0;
+  padding: var(--hairline);
+  background: var(--rule);
+}
+
+.authority-map-lane {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'number name'
+    'number role'
+    'owns owns'
+    'refuses refuses';
+  gap: var(--space-xs) var(--space-s);
+  min-width: 0;
+  padding: var(--space-m);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.authority-map-lane::after {
+  content: '→';
+  position: absolute;
+  z-index: 2;
+  inset: auto 50% calc(var(--space-s) * -1) auto;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: var(--hairline) solid var(--rule);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--accent-deep);
+  font-family: var(--mono-font-family);
+  transform: translateX(50%) rotate(90deg);
+}
+
+.authority-map-lane:last-child::after {
+  content: none;
+}
+
+.authority-map-number {
+  grid-area: number;
+  font-family: var(--mono-font-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+}
+
+.authority-map-name {
+  grid-area: name;
+  font-size: clamp(2rem, 9cqi, 4.75rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  color: var(--ink);
+}
+
+.authority-map-name > :first-child,
+.authority-map-role > :first-child,
+.authority-map-detail-copy > :first-child {
+  margin-block-start: 0;
+}
+
+.authority-map-name > :last-child,
+.authority-map-role > :last-child,
+.authority-map-detail-copy > :last-child {
+  margin-block-end: 0;
+}
+
+.authority-map-role {
+  grid-area: role;
+  justify-self: start;
+  color: var(--accent-deep);
+  font-family: var(--mono-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.authority-map-detail {
+  display: grid;
+  grid-template-columns: 5ch minmax(0, 1fr);
+  gap: var(--space-s);
+  margin-block-start: var(--space-s);
+  padding-block-start: var(--space-s);
+  border-block-start: var(--hairline) solid var(--rule);
+}
+
+.authority-map-owns { grid-area: owns; }
+.authority-map-refuses { grid-area: refuses; }
+
+.authority-map-detail-label {
+  font-family: var(--mono-font-family);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.authority-map-refuses .authority-map-detail-label {
+  color: var(--stamp-red);
+}
+
+.authority-map-detail-copy {
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: var(--body-font-size-s);
+}
+
+@container authority-map (width >= 52rem) {
+  .authority-map-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .authority-map-lane {
+    grid-template-rows: auto auto minmax(5rem, auto) auto auto;
+    grid-template-areas:
+      'number name'
+      'number role'
+      '. .'
+      'owns owns'
+      'refuses refuses';
+    min-height: 31rem;
+  }
+
+  .authority-map-lane::after {
+    inset: 50% calc(var(--space-s) * -1) auto auto;
+    transform: translateY(-50%);
+  }
+}
+
+@media (forced-colors: active) {
+  .authority-map-list,
+  .authority-map-lane,
+  .authority-map-lane::after {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}

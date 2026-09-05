@@ -26,6 +26,21 @@
 .cards-card-title {
   margin: 0 0 var(--space-xs);
   font-size: var(--heading-font-size-s);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.cards-card-title > :first-child {
+  margin-top: 0;
+}
+
+.cards-card-title > :last-child {
+  margin-bottom: 0;
+}
+
+.cards-card-title > :is(p, .prosemirror-editor) {
+  color: inherit;
 }
 
 .cards-card-body {
