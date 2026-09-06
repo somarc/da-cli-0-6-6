@@ -11,9 +11,9 @@ The package remains `0.6.5` until the manual release workflow publishes `0.6.6`.
 - `/safety` — authority, planning, mutation, verification, and Riverboat
 - `/coverage` — evidence classification and closure method
 - `/reference` — current technical-reference entry point
-- `/reference/0.6.6/commands` — searchable 138-path command catalog
-- `/reference/0.6.6/families/*` — 24 command-family hubs
-- `/reference/0.6.6/commands/*` — one canonical page per executable path
+- `/reference/0-6-6/commands` — searchable 138-path command catalog
+- `/reference/0-6-6/families/*` — 24 command-family hubs
+- `/reference/0-6-6/commands/*` — one canonical page per executable path
 - `/release-evidence` — dated 0.6.6 qualification snapshot
 - `/receipts` — generated operational archive
 - `/review`, `/ledger`, `/evidence`, `/riverboat` — deeper historical records

@@ -54,10 +54,10 @@ steps:
     command: audit full /coverage --format json
     depends_on: [preview-coverage, preview-nav, preview-footer]
   - id: audit-reference
-    command: audit full /reference/0.6.6/commands --format json
+    command: audit full /reference/0-6-6/commands --format json
     depends_on: [preview-reference-tree, preview-nav, preview-footer]
   - id: audit-command-page
-    command: audit full /reference/0.6.6/commands/content/put --format json
+    command: audit full /reference/0-6-6/commands/content/put --format json
     depends_on: [preview-reference-tree, preview-nav, preview-footer]
   - id: audit-release-evidence
     command: audit full /release-evidence --format json

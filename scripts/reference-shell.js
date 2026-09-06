@@ -40,7 +40,7 @@ function normalizedPath(path) {
 
 function familyPath(family) {
   const slug = family === 'index' ? 'indexes' : family;
-  return `/reference/0.6.6/families/${slug}`;
+  return `/reference/0-6-6/families/${slug}`;
 }
 
 function familyLink(family) {
@@ -76,9 +76,9 @@ function buildGlobalNav() {
   sharedHeading.textContent = 'Shared contracts';
   const sharedList = document.createElement('ul');
   [
-    ['Global invocation', '/reference/0.6.6/global-options'],
-    ['Machine output', '/reference/0.6.6/machine-output'],
-    ['Pipeline YAML', '/reference/0.6.6/pipeline-language'],
+    ['Global invocation', '/reference/0-6-6/global-options'],
+    ['Machine output', '/reference/0-6-6/machine-output'],
+    ['Pipeline YAML', '/reference/0-6-6/pipeline-language'],
   ].forEach(([name, href]) => {
     const item = document.createElement('li');
     const link = document.createElement('a');
@@ -109,7 +109,7 @@ function buildGlobalNav() {
 
   const all = document.createElement('a');
   all.className = 'reference-shell-all';
-  all.href = '/reference/0.6.6/commands';
+  all.href = '/reference/0-6-6/commands';
   all.textContent = 'Search all commands →';
   if (normalizedPath(all.pathname) === normalizedPath(window.location.pathname)) {
     all.setAttribute('aria-current', 'page');

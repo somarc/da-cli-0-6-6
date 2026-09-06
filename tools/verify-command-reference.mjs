@@ -28,7 +28,7 @@ assert(new Set(catalog.commands.map(({ checkId }) => checkId)).size === expected
 assert(new Set(catalog.commands.map(({ path }) => path)).size === expectedTotal, 'command paths must be unique');
 assert(catalog.commands.every(({ helpExitCode }) => helpExitCode === 0), 'every installed-help capture must succeed');
 assert(catalog.commands.every(({ description }) => description?.trim()), 'every command needs a description');
-assert(catalog.commands.every(({ referencePath }) => referencePath?.startsWith('/reference/0.6.6/commands/')), 'every command needs a versioned route');
+assert(catalog.commands.every(({ referencePath }) => referencePath?.startsWith('/reference/0-6-6/commands/')), 'every command needs a versioned route');
 assert(new Set(catalog.commands.map(({ referencePath }) => referencePath)).size === expectedTotal, 'command routes must be unique');
 
 assert(catalog.families?.length === 24, 'catalog must contain 24 command families');
@@ -39,7 +39,7 @@ catalog.commands.forEach(({ family }) => assert(familyCounts.has(family), `unkno
 assert(new Set(catalog.families.map(({ path }) => path)).size === catalog.families.length, 'family routes must be unique');
 
 if (contentRoot) {
-  const allPath = resolve(contentRoot, 'reference/0.6.6/commands.html');
+  const allPath = resolve(contentRoot, 'reference/0-6-6/commands.html');
   assert(existsSync(allPath), 'all-command page is missing');
   const allSource = readFileSync(allPath, 'utf8');
   const familyRoutes = new Map(catalog.families.map(({ id, path }) => [id, path]));
