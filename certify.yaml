@@ -1,62 +1,74 @@
-# Certification pipeline for the da-cli 0.6.6 proof site.
+# Preview-only certification pipeline for the canonical da-cli 0.6.6 site.
 #
 #   da --org somarc --repo da-cli-0-6-6 --branch main --qmd \
 #     --riverboat-gambler --commit \
 #     pipeline run certify.yaml --approve evidence-build
 #
-# DA is authoritative for authored pages and fragments. This pipeline uploads
-# only /receipts, the evidence-derived projection. One explicitly approved
-# shell step verifies the generated Lottie artifact and renders that page from
-# the QMD vault. Every remote operation is reviewed da-cli surface. The
-# pipeline journals one outcome receipt; child steps never inherit journaling.
-name: certify-0-6-6-outer-loop
+# DA is authoritative for authored pages. Git owns blocks, widgets, media,
+# reference-contract data, and this pipeline. The only local shell step runs
+# repository checks and renders the generated receipt archive. No step publishes
+# to *.aem.live.
+name: certify-0-6-6-reference-site
 steps:
   - id: evidence-build
-    command: npm run check:motion && node tools/receipts-page.mjs --site somarc/da-cli-0-6-6 --out .da/out/receipts.html
+    command: npm run check && node tools/receipts-page.mjs --site somarc/da-cli-0-6-6 --out .da/out/receipts.html
     requires_approval: true
-    timeout: 60s
+    timeout: 90s
 
   - id: put-receipts
     command: content put /receipts .da/out/receipts.html --strict-sections
     depends_on: [evidence-build]
 
-  - id: preview-index
+  - id: preview-overview
     command: preview page /index
-  - id: preview-review
-    command: preview page /review
-  - id: preview-ledger
-    command: preview page /ledger
-  - id: preview-evidence
-    command: preview page /evidence
-  - id: preview-riverboat
-    command: preview page /riverboat
+  - id: preview-getting-started
+    command: preview page /getting-started
+  - id: preview-workflow
+    command: preview page /workflow
+  - id: preview-safety
+    command: preview page /safety
+  - id: preview-coverage
+    command: preview page /coverage
+  - id: preview-release-evidence
+    command: preview page /release-evidence
   - id: preview-nav
     command: preview page /nav
   - id: preview-footer
     command: preview page /footer
+  - id: preview-reference-tree
+    command: preview tree /reference --verify --yes
   - id: preview-receipts
     command: preview page /receipts
     depends_on: [put-receipts]
 
-  - id: audit-index
+  - id: audit-overview
     command: audit full /index --format json
-    depends_on: [preview-index, preview-nav, preview-footer]
-  - id: audit-review
-    command: audit full /review --format json
-    depends_on: [preview-review, preview-nav, preview-footer]
-  - id: audit-ledger
-    command: audit full /ledger --format json
-    depends_on: [preview-ledger, preview-nav, preview-footer]
-  - id: audit-evidence
-    command: audit full /evidence --format json
-    depends_on: [preview-evidence, preview-nav, preview-footer]
-  - id: audit-riverboat
-    command: audit full /riverboat --format json
-    depends_on: [preview-riverboat, preview-nav, preview-footer]
+    depends_on: [preview-overview, preview-nav, preview-footer]
+  - id: audit-workflow
+    command: audit full /workflow --format json
+    depends_on: [preview-workflow, preview-nav, preview-footer]
+  - id: audit-safety
+    command: audit full /safety --format json
+    depends_on: [preview-safety, preview-nav, preview-footer]
+  - id: audit-coverage
+    command: audit full /coverage --format json
+    depends_on: [preview-coverage, preview-nav, preview-footer]
+  - id: audit-reference
+    command: audit full /reference/0.6.6/commands --format json
+    depends_on: [preview-reference-tree, preview-nav, preview-footer]
+  - id: audit-command-page
+    command: audit full /reference/0.6.6/commands/content/put --format json
+    depends_on: [preview-reference-tree, preview-nav, preview-footer]
+  - id: audit-release-evidence
+    command: audit full /release-evidence --format json
+    depends_on: [preview-release-evidence, preview-nav, preview-footer]
   - id: audit-receipts
     command: audit full /receipts --format json
     depends_on: [preview-receipts, preview-nav, preview-footer]
+  - id: audit-contracts
+    command: audit contracts --prefix / --verify-code --limit 250 --format json
+    depends_on: [preview-reference-tree, preview-overview, preview-workflow, preview-safety, preview-coverage]
 
   - id: freshness
     command: site freshness / --include-shared --boundary preview --fail-on preview-stale,preview-missing,source-missing,probe-failed,unknown --format json
-    depends_on: [audit-index, audit-review, audit-ledger, audit-evidence, audit-riverboat, audit-receipts]
+    depends_on: [audit-overview, audit-workflow, audit-safety, audit-coverage, audit-reference, audit-command-page, audit-release-evidence, audit-receipts, audit-contracts]

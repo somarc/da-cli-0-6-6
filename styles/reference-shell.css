@@ -1,0 +1,264 @@
+/* Enterprise reference rails translated into the manila filing system. */
+/* stylelint-disable no-descending-specificity -- shared rail links specialize later */
+
+.reference-shell-nav,
+.reference-shell-local {
+  position: fixed;
+  z-index: 8;
+  top: var(--nav-height);
+  bottom: 0;
+  overflow-y: auto;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.reference-shell-nav {
+  left: 0;
+  width: 16rem;
+  padding: var(--space-m) var(--space-s) var(--space-xl);
+  border-right: 1px solid var(--rule);
+  box-shadow: 7px 0 22px rgb(23 20 13 / 6%);
+}
+
+.reference-shell-head {
+  display: grid;
+  gap: 0.15rem;
+  margin-bottom: var(--space-m);
+  padding: var(--space-s);
+  border: 1px solid var(--paper-line);
+  border-radius: 3px 3px 12px;
+  background: var(--paper);
+  transform: rotate(-0.35deg);
+}
+
+.reference-shell-head span,
+.reference-shell-nav h2,
+.reference-shell-local strong {
+  font-family: var(--mono-font-family);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reference-shell-head span {
+  color: var(--copper);
+}
+
+.reference-shell-head a {
+  color: var(--ink);
+  font-family: var(--display-font-family);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+}
+
+.reference-shell-nav section + section {
+  margin-top: var(--space-m);
+}
+
+.reference-shell-nav h2 {
+  margin: 0 0 0.35rem;
+  color: var(--ink-dim);
+}
+
+.reference-shell-nav ul,
+.reference-shell-local ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reference-shell-nav li {
+  margin: 1px 0;
+}
+
+.reference-shell-nav li a,
+.reference-shell-all,
+.reference-shell-local a {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0.35rem 0.55rem;
+  border-left: 2px solid transparent;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.reference-shell-nav a:hover,
+.reference-shell-nav a:focus-visible,
+.reference-shell-local a:hover,
+.reference-shell-local a:focus-visible {
+  background: rgb(255 255 255 / 42%);
+  color: var(--ink);
+}
+
+.reference-shell-nav a[aria-current='page'] {
+  border-left-color: var(--moss);
+  background: var(--moss-tint);
+  color: var(--moss);
+  font-weight: 600;
+}
+
+.reference-shell-all {
+  margin-top: var(--space-m);
+  border-top: 1px solid var(--rule);
+  border-left: 0;
+  color: var(--accent-deep);
+  font-family: var(--mono-font-family);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.reference-shell-local {
+  right: 0;
+  width: 14rem;
+  padding: var(--space-l) var(--space-m);
+  border-left: 1px solid var(--rule);
+  background: rgb(246 242 231 / 92%);
+}
+
+.reference-shell-local strong {
+  color: var(--copper);
+}
+
+.reference-shell-local ol {
+  margin-top: var(--space-s);
+  counter-reset: local-index;
+}
+
+.reference-shell-local li {
+  counter-increment: local-index;
+}
+
+.reference-shell-local a {
+  align-items: start;
+  gap: 0.55rem;
+  min-height: 34px;
+  padding-inline: 0;
+  line-height: 1.35;
+}
+
+.reference-shell-local a::before {
+  content: counter(local-index, decimal-leading-zero);
+  color: var(--ink-dim);
+  font-family: var(--mono-font-family);
+  font-size: 0.58rem;
+}
+
+.reference-shell-toggle,
+.reference-shell-backdrop,
+.reference-shell-close {
+  display: none;
+}
+
+@media (width >= 1180px) {
+  body.reference main {
+    margin-left: 16rem;
+  }
+}
+
+@media (width >= 1500px) {
+  body.reference main {
+    margin-right: 14rem;
+  }
+}
+
+@media (width < 1500px) {
+  .reference-shell-local {
+    display: none;
+  }
+}
+
+@media (width < 1180px) {
+  .reference-shell-nav {
+    z-index: 20;
+    top: 0;
+    width: min(19rem, calc(100vw - 3rem));
+    visibility: hidden;
+    transform: translateX(-102%);
+    transition: transform 180ms ease, visibility 0s linear 180ms;
+  }
+
+  body.reference-nav-open {
+    overflow: hidden;
+  }
+
+  body.reference-nav-open .reference-shell-nav {
+    visibility: visible;
+    transform: translateX(0);
+    transition: transform 180ms ease;
+  }
+
+  .reference-shell-head {
+    margin-top: 3rem;
+  }
+
+  .reference-shell-toggle {
+    position: fixed;
+    z-index: 18;
+    right: var(--space-s);
+    bottom: var(--space-s);
+    display: block;
+    min-height: 48px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono-font-family);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .reference-shell-close {
+    position: absolute;
+    z-index: 1;
+    top: var(--space-s);
+    right: var(--space-s);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 1.45rem;
+    cursor: pointer;
+  }
+
+  .reference-shell-backdrop {
+    position: fixed;
+    z-index: 19;
+    inset: 0;
+    border: 0;
+    background: rgb(23 20 13 / 48%);
+  }
+
+  body.reference-nav-open .reference-shell-backdrop {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-shell-nav {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .reference-shell-nav,
+  .reference-shell-local,
+  .reference-shell-toggle {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}
+/* stylelint-enable no-descending-specificity */

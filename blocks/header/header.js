@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import installCommandSearch from '../../scripts/command-search.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -113,6 +114,19 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 // release badge for the masthead — code-side, not authored per row/cell
 const RELEASE_VERSION = '0.6.6';
 
+function normalizePath(pathname) {
+  return pathname.replace(/\/index(?:\.html)?$/, '').replace(/\.html$/, '').replace(/\/$/, '') || '/';
+}
+
+function markCurrentLink(nav) {
+  const current = normalizePath(window.location.pathname);
+  nav.querySelectorAll('a[href]').forEach((link) => {
+    const path = normalizePath(new URL(link.href, window.location.href).pathname);
+    const referenceParent = path === '/reference' && current.startsWith('/reference/');
+    if (path === current || referenceParent) link.setAttribute('aria-current', 'page');
+  });
+}
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -166,6 +180,9 @@ export default async function decorate(block) {
       });
     });
   }
+
+  installCommandSearch(nav.querySelector('.nav-tools'));
+  markCurrentLink(nav);
 
   // hamburger for mobile
   const hamburger = document.createElement('div');

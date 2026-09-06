@@ -1,0 +1,213 @@
+.operation-map {
+  --operation-map-rule: var(--rule);
+  --operation-map-surface: rgb(246 242 231 / 92%);
+
+  position: relative;
+  container: operation-map / inline-size;
+  border-block: 1px solid var(--operation-map-rule);
+  padding-block: var(--space-l);
+}
+
+.operation-map-shell {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.operation-map-intro {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1fr);
+  gap: var(--space-m);
+  align-items: baseline;
+}
+
+.operation-map-intro p {
+  max-width: 54ch;
+  margin: 0;
+}
+
+.operation-map-kicker {
+  color: var(--moss);
+  font-family: var(--mono-font-family);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.operation-map-layout {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.operation-map-orbit {
+  --gate-index: 0;
+
+  position: relative;
+  align-self: start;
+  width: min(100%, 34rem);
+  aspect-ratio: 1.25;
+  margin-inline: auto;
+  background:
+    radial-gradient(circle at 50% 50%, var(--paper) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 50% 50%, transparent 0 23%, var(--rule) 23.5% 24%, transparent 24.5%),
+    radial-gradient(ellipse at 50% 50%, transparent 0 52%, var(--moss-tint) 52.5% 66%, transparent 67%);
+}
+
+.operation-map-track {
+  position: absolute;
+  inset: 17% 5%;
+  border: 2px dashed var(--accent);
+  border-radius: 50%;
+  transform: rotate(-9deg);
+}
+
+.operation-map-core {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 5.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono-font-family);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transform: translate(-50%, -50%);
+}
+
+.operation-map-cursor {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 1.35rem;
+  border: 2px solid var(--copper);
+  border-radius: 2px;
+  background: var(--paper);
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(-90deg + (var(--gate-index) * 60deg)))
+    translateX(min(22cqi, 10.5rem))
+    rotate(calc(90deg - (var(--gate-index) * 60deg)));
+  transition: transform 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.operation-map-gates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.operation-map-gates > li {
+  border-bottom: 1px solid var(--operation-map-rule);
+}
+
+.operation-map-gates button {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  padding: 0.7rem 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.operation-map-gates button span {
+  color: var(--ink-dim);
+  font-family: var(--mono-font-family);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.operation-map-gates .is-selected button {
+  color: var(--moss);
+}
+
+.operation-map-detail {
+  padding: 0 0 var(--space-m) calc(2ch + var(--space-s));
+  color: var(--ink-soft);
+}
+
+.operation-map-detail > p {
+  max-width: 52ch;
+}
+
+.operation-map-detail dl {
+  display: grid;
+  gap: 1px;
+  margin: var(--space-s) 0 0;
+  background: var(--operation-map-rule);
+}
+
+.operation-map-detail dl > div {
+  display: grid;
+  grid-template-columns: 7ch minmax(0, 1fr);
+  gap: var(--space-s);
+  padding: 0.55rem 0.7rem;
+  background: var(--operation-map-surface);
+}
+
+.operation-map-detail dt,
+.operation-map-detail dd {
+  margin: 0;
+}
+
+.operation-map-detail dt {
+  font-family: var(--mono-font-family);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.operation-map-detail dd {
+  font-size: var(--body-font-size-xs);
+}
+
+@container operation-map (width >= 52rem) {
+  .operation-map-layout {
+    grid-template-columns: minmax(21rem, 0.9fr) minmax(24rem, 1.1fr);
+    gap: clamp(2rem, 7cqi, 6rem);
+    align-items: start;
+  }
+
+  .operation-map-orbit {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-m));
+  }
+}
+
+@media (width < 560px) {
+  .operation-map-intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .operation-map-cursor {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .operation-map-orbit,
+  .operation-map-core,
+  .operation-map-cursor {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}

@@ -1,0 +1,64 @@
+<div class="operation-map-shell">
+  <div class="operation-map-intro">
+    <p class="operation-map-kicker">Interactive operating map</p>
+    <p>Choose a gate to see the authority it reads, the boundary it may cross, and the proof it should leave behind.</p>
+  </div>
+  <div class="operation-map-layout">
+    <div class="operation-map-orbit" aria-hidden="true">
+      <span class="operation-map-core">EDS</span>
+      <span class="operation-map-track"></span>
+      <span class="operation-map-cursor"></span>
+    </div>
+    <ol class="operation-map-gates">
+      <li data-gate="orient">
+        <button type="button"><span>01</span> Orient</button>
+        <div class="operation-map-detail">
+          <strong>Know the operating context.</strong>
+          <p>Resolve the target, environment, branch, workspace, and usable authentication state before work begins.</p>
+          <dl><div><dt>Reads</dt><dd>configuration + identity</dd></div><div><dt>Crosses</dt><dd>no mutation boundary</dd></div><div><dt>Leaves</dt><dd>resolved target</dd></div></dl>
+        </div>
+      </li>
+      <li data-gate="source">
+        <button type="button"><span>02</span> Source</button>
+        <div class="operation-map-detail">
+          <strong>Work from the owning authority.</strong>
+          <p>Use DA for authored content and Git for implementation. Do not create a convenient hidden mirror.</p>
+          <dl><div><dt>Reads</dt><dd>DA or Git</dd></div><div><dt>Crosses</dt><dd>authority boundary</dd></div><div><dt>Leaves</dt><dd>named source</dd></div></dl>
+        </div>
+      </li>
+      <li data-gate="preview">
+        <button type="button"><span>03</span> Preview</button>
+        <div class="operation-map-detail">
+          <strong>Build the proposed state.</strong>
+          <p>Preview the exact route on the preview delivery boundary before publication is considered.</p>
+          <dl><div><dt>Reads</dt><dd>authored source</dd></div><div><dt>Crosses</dt><dd>preview boundary</dd></div><div><dt>Leaves</dt><dd>preview URL</dd></div></dl>
+        </div>
+      </li>
+      <li data-gate="prove">
+        <button type="button"><span>04</span> Prove</button>
+        <div class="operation-map-detail">
+          <strong>Test the intended outcome.</strong>
+          <p>Audit structure, contracts, freshness, and declared effects rather than trusting a successful request.</p>
+          <dl><div><dt>Reads</dt><dd>source + delivery</dd></div><div><dt>Crosses</dt><dd>evidence boundary</dd></div><div><dt>Leaves</dt><dd>bounded result</dd></div></dl>
+        </div>
+      </li>
+      <li data-gate="publish">
+        <button type="button"><span>05</span> Publish</button>
+        <div class="operation-map-detail">
+          <strong>Promote only reviewed intent.</strong>
+          <p>Cross the live boundary as a separate, explicit action after the preview state is understood.</p>
+          <dl><div><dt>Reads</dt><dd>approved plan</dd></div><div><dt>Crosses</dt><dd>live mutation</dd></div><div><dt>Leaves</dt><dd>delivery outcome</dd></div></dl>
+        </div>
+      </li>
+      <li data-gate="reconcile">
+        <button type="button"><span>06</span> Reconcile</button>
+        <div class="operation-map-detail">
+          <strong>Compare intent with reality.</strong>
+          <p>Verify the resulting state and retain enough evidence to explain what happened later.</p>
+          <dl><div><dt>Reads</dt><dd>intent + result</dd></div><div><dt>Crosses</dt><dd>verification boundary</dd></div><div><dt>Leaves</dt><dd>receipt + next action</dd></div></dl>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <p class="operation-map-status visually-hidden" aria-live="polite"></p>
+</div>

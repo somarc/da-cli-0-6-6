@@ -1,0 +1,86 @@
+/* Peripheral atmosphere for the living theme. Never occupies content space. */
+
+.living-gutter {
+  --gutter-x: 44%;
+  --gutter-y: 42%;
+
+  position: fixed;
+  z-index: 0;
+  top: var(--nav-height);
+  bottom: 0;
+  width: min(18vw, 15rem);
+  height: calc(100dvh - var(--nav-height));
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.24;
+}
+
+.living-gutter-left {
+  left: 0;
+}
+
+.living-gutter-right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.living-gutter::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--paper) 94%);
+}
+
+.living-gutter-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+.living-gutter-bare {
+  background-image: url('/media/imagine/pillar-bare.webp');
+  filter: grayscale(0.25) contrast(0.9);
+}
+
+.living-gutter-grown {
+  background-image: url('/media/imagine/pillar-living.webp');
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the mirrored mask */
+  -webkit-mask-image: radial-gradient(circle 72% at var(--gutter-x) var(--gutter-y), #000 0 34%, transparent 76%);
+  -webkit-mask-repeat: no-repeat;
+  /* stylelint-enable property-no-vendor-prefix */
+  mask-image: radial-gradient(circle 72% at var(--gutter-x) var(--gutter-y), #000 0 34%, transparent 76%);
+  mask-repeat: no-repeat;
+}
+
+.living-gutter.is-static {
+  --gutter-x: 46%;
+  --gutter-y: 38%;
+}
+
+body.living main,
+body.living > footer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (width < 1180px) {
+  .living-gutter {
+    display: none;
+  }
+}
+
+@media (width >= 1500px) {
+  .living-gutter {
+    width: min(19vw, 18rem);
+    opacity: 0.3;
+  }
+}
+
+@media (forced-colors: active) {
+  .living-gutter {
+    display: none;
+  }
+}

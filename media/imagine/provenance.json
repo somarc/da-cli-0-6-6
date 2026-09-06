@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "da-cli-site.imagine-provenance.v1",
+  "generatedAt": "2026-09-06T02:43:00Z",
+  "generator": "Grok Imagine via Grok Build",
+  "modelSession": "grok-4.6-build",
+  "visualThesis": "Bare operational structure becomes a living, evidence-bearing system.",
+  "constraints": [
+    "No generated asset carries product copy, command syntax, metrics, or status claims.",
+    "No generated asset depicts a real person.",
+    "HTML and CSS remain authoritative for all semantic information.",
+    "The hero motion is decorative, muted, and has a complete static fallback."
+  ],
+  "assets": [
+    {
+      "path": "/media/imagine/hero-operations-garden.webp",
+      "role": "hero poster",
+      "dimensions": "1280x720",
+      "sha256": "5c78914bfce240f2a42fdc3da4232d2bee711d1ed7aa6a4b5b9d7bd3e2c01895",
+      "sourceSha256": "651f4475519de8260f161629c41123034ca178a833fc2020079167f9f534df2d"
+    },
+    {
+      "path": "/media/imagine/hero-operations-garden.webm",
+      "role": "silent ambient hero motion, VP9 compatibility delivery",
+      "dimensions": "736x400",
+      "durationSeconds": 6.042,
+      "sha256": "c2880de4c4eb3a6368d37a49a2f19dbe9a47451883e32da2c51c8565ab4171dd",
+      "sourceSha256": "c3079e91fa0bb828c5e2e90026bcfb4103e819b44cc250d679143d3899b652f5",
+      "transform": "VP9 WebM compatibility encode from the verified silent H.264 delivery"
+    },
+    {
+      "path": "/media/imagine/hero-operations-garden.mp4",
+      "role": "silent ambient hero motion",
+      "dimensions": "736x400",
+      "durationSeconds": 6.041667,
+      "sha256": "c3079e91fa0bb828c5e2e90026bcfb4103e819b44cc250d679143d3899b652f5",
+      "sourceSha256": "55b7dd8c82c01baf8879ddda58b2625454cff17491907012e8afa498fc146f95",
+      "transform": "audio stream removed with video stream copy; fast-start metadata enabled"
+    },
+    {
+      "path": "/media/imagine/pillar-bare.webp",
+      "role": "dual-form structural state and wide-screen gutter",
+      "dimensions": "864x1152",
+      "sha256": "a4ee25d131b2d4c4da158a2209989ebf234954d125f7248b3a60fd72164bf33d",
+      "sourceSha256": "5e2359b70a1a4551c292f4fe899a4337f8a1a2f4f8f70ec93a8d14dbf7830915"
+    },
+    {
+      "path": "/media/imagine/pillar-living.webp",
+      "role": "dual-form evidence-bearing state and wide-screen gutter",
+      "dimensions": "864x1152",
+      "sha256": "d1c2be8680d202908771a95f4527020635fe2bf79cde99dc5dd1041b375d8fbf",
+      "sourceSha256": "320d7ea2791be771be961acfd3ffb270e7e87a55f68bf210eadc5595f54fd2f9"
+    },
+    {
+      "path": "/media/imagine/instrument-bare.webp",
+      "role": "dual-form unoriented state",
+      "dimensions": "864x1152",
+      "sha256": "bf6b259eaf0161a3a86650ed9964ab0c78553fbde57369d140110aefb35b0853",
+      "sourceSha256": "10f23226caa83cf4c7e524e5bf4f90d2a872c10800b73b1bbff299162c8267ed"
+    },
+    {
+      "path": "/media/imagine/instrument-living.webp",
+      "role": "dual-form oriented evidence-bearing state",
+      "dimensions": "864x1152",
+      "sha256": "fb4c8890c4b2118cecdc362b71cd3b5d2710dc5f7098a793dc9637fb6aee4d48",
+      "sourceSha256": "3025e1a93a671d48ed406f32d5509a2bfe68074287d89f8c820cb4b789fbb2e2"
+    }
+  ]
+}

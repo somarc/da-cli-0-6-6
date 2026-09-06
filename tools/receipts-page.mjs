@@ -71,8 +71,8 @@ const green = latestRun?.outcome.state === 'completed';
 const scars = runs.filter((r) => r.outcome.state !== 'completed').length;
 
 const verdictHeading = runs.length === 0
-  ? 'Certification: not yet on record'
-  : (green ? 'Certification: green' : `Certification: ${latestRun.outcome.state}`);
+  ? 'Pipeline outcome: not yet on record'
+  : (green ? 'Latest pipeline outcome: completed' : `Latest pipeline outcome: ${latestRun.outcome.state}`);
 
 let verdictLead;
 if (runs.length === 0) {
@@ -174,15 +174,15 @@ function stepRow(s) {
 }
 
 const anatomySection = pipeline.steps.length ? `    <div>
-      <h2>What a green run does</h2>
-      <p>Certification is not a checklist in someone's head — it is the checked-in <code>certify.yaml</code>, ${pipeline.steps.length} steps run as one full riverboat: <code>da --org somarc --repo da-cli-0-6-6 --branch main --qmd --riverboat-gambler --commit pipeline run certify.yaml --approve evidence-build</code>. Exactly ${shellSteps.length === 1 ? 'one step runs' : `${shellSteps.length} steps run`} local code — verifying the generated motion artifact and rendering this page from the vault's receipt JSON under a finite timeout and an explicitly pre-granted approval. The other ${daSteps} steps are reviewed da-cli surface: ${nPut} uploads, ${nPreview} previews, ${nAudit} audits, and ${nFresh} freshness verification. The explicit <code>--qmd</code> journals exactly one receipt for the pipeline; its steps never inherit journaling.</p>
+      <h2>What the recorded pipeline ran</h2>
+      <p>The checked-in <code>certify.yaml</code> contains ${pipeline.steps.length} steps in one explicit riverboat invocation: <code>da --org somarc --repo da-cli-0-6-6 --branch main --qmd --riverboat-gambler --commit pipeline run certify.yaml --approve evidence-build</code>. Exactly ${shellSteps.length === 1 ? 'one step runs' : `${shellSteps.length} steps run`} local code under a finite timeout and an explicitly pre-granted approval. The other ${daSteps} steps are reviewed da-cli surface: ${nPut} uploads, ${nPreview} previews, ${nAudit} audits, and ${nFresh} freshness verification. This describes the recorded operation; it does not grant publication authority.</p>
       <div class="pipeline">
 ${pipeline.steps.map(stepRow).join('\n')}
       </div>
       <div class="callout">
         <div>
-          <div>SELF-CERTIFYING</div>
-          <div>The green run regenerates this page, uploads it, previews every page on the site, audits the critical ones, and verifies freshness — then its own receipt lands in the vault as the newest entry of the ledger it just published. The site certifies itself, and the certification leaves a receipt.</div>
+          <div>RECORDED SCOPE</div>
+          <div>The pipeline regenerates this projection, uploads it, previews the declared pages, audits the canonical surfaces, and verifies freshness. Its own receipt reaches the vault only after the page exists. That record is operational evidence, not release approval.</div>
         </div>
       </div>
     </div>` : '';
@@ -216,9 +216,9 @@ const html = `<body>
   <header></header>
   <main>
     <div>
-      <p><em>The evidence</em></p>
-      <h1>This site's own receipts</h1>
-      <p>Every remote operation that built and certified this site ran through da-cli with the QMD journal on. This page was generated directly from the vault's receipt JSON by the pipeline's one riverboat step — nothing here was written by hand, including the failures. And including the verdict.</p>
+      <p><em>Operational archive · generated projection</em></p>
+      <h1>Receipts, not authority.</h1>
+      <p>This page projects the site's retained da-cli receipts directly from canonical receipt JSON. It keeps successes, refusals, failures, modes, and timing in order. A receipt records what a command observed or attempted; it does not approve another command, qualify a release by itself, or replace the versioned rubric.</p>
       <p><em>Generated ${esc(generatedAt)}Z from ${receipts.length} receipts for ${esc(site)}.</em></p>
     </div>
 ${arcSection}
@@ -235,7 +235,7 @@ ${latestRun ? `        <div><div>latest certification</div><div>${esc(latestRun.
       <div class="callout">
         <div>
           <div>KEPT SCARS</div>
-          <div>Refusals and failures never leave this ledger. They sit in original order, next to the green runs that answered them — a ledger that only shows successes is marketing.</div>
+          <div>Refusals and failures stay in original order beside later completed runs. The archive is useful because it does not edit operational history into a success story.</div>
         </div>
       </div>
     </div>
@@ -246,8 +246,9 @@ ${shown.map(receiptBlock).join('\n')}
     </div>
     <div>
       <div class="metadata">
-        <div><div>title</div><div>Receipts — the build ledger of this site</div></div>
-        <div><div>description</div><div>Every da-cli operation that built this proof site, rendered directly from the QMD vault's receipt JSON by the certification pipeline — the certification arc, the anatomy of a green run, and the full ledger, failures included.</div></div>
+        <div><div>title</div><div>Receipts — generated da-cli operational archive</div></div>
+        <div><div>description</div><div>A dated projection of retained da-cli command receipts for this site, including completed runs, refusals, failures, modes, and timing without granting release authority.</div></div>
+        <div><div>theme</div><div>archive</div></div>
       </div>
     </div>
   </main>

@@ -1,0 +1,264 @@
+/* Dual-state visual: one silhouette, two operational conditions. */
+
+.dual-form {
+  container: dual-form / inline-size;
+}
+
+.dual-form-frame {
+  display: grid;
+  gap: var(--space-l);
+  align-items: center;
+  padding-block: var(--space-m);
+}
+
+.dual-form-copy {
+  max-width: 34rem;
+}
+
+.dual-form-eyebrow {
+  margin: 0 0 var(--space-s);
+  color: var(--copper);
+  font-family: var(--mono-font-family);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.dual-form-copy h2,
+.dual-form-copy h3 {
+  max-width: 13ch;
+  margin: 0;
+  font-family: var(--display-font-family);
+  font-size: clamp(2.6rem, 8cqi, 5.8rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+.dual-form-body {
+  max-width: 43ch;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.dual-form-art {
+  min-width: 0;
+}
+
+.dual-form-stage {
+  --dual-x: 58%;
+  --dual-y: 43%;
+  --dual-solid: 24%;
+  --dual-size: 45%;
+
+  position: relative;
+  width: min(100%, 31rem);
+  aspect-ratio: 3 / 4;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 46% 46% 5px 5px;
+  background:
+    linear-gradient(180deg, rgb(246 242 231 / 28%), var(--paper) 90%),
+    radial-gradient(circle at 50% 32%, var(--lichen), transparent 62%);
+  box-shadow: inset 0 0 0 0.65rem rgb(246 242 231 / 46%);
+  isolation: isolate;
+  touch-action: pan-y;
+}
+
+.dual-form-stage::before,
+.dual-form-stage::after {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.dual-form-stage::before {
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, var(--paper) 0%, transparent 18% 82%, var(--paper) 100%),
+    linear-gradient(0deg, var(--paper) 0%, transparent 16% 88%, rgb(246 242 231 / 55%) 100%);
+}
+
+.dual-form-stage::after {
+  inset: auto 13% 4%;
+  height: 8%;
+  border-radius: 50%;
+  background: rgb(23 20 13 / 13%);
+  filter: blur(14px);
+}
+
+.dual-form-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.dual-form-layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: saturate(0.9) contrast(0.98);
+}
+
+.dual-form-living {
+  z-index: 2;
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the mirrored mask */
+  -webkit-mask-image: radial-gradient(
+    circle at var(--dual-x) var(--dual-y),
+    #000 0 var(--dual-solid),
+    transparent var(--dual-size)
+  );
+  -webkit-mask-repeat: no-repeat;
+  /* stylelint-enable property-no-vendor-prefix */
+  mask-image: radial-gradient(
+    circle at var(--dual-x) var(--dual-y),
+    #000 0 var(--dual-solid),
+    transparent var(--dual-size)
+  );
+  mask-repeat: no-repeat;
+  transition: -webkit-mask-image 250ms ease, mask-image 250ms ease;
+}
+
+.dual-form-stage[data-view='bare'] {
+  --dual-solid: 0%;
+  --dual-size: 0%;
+}
+
+.dual-form-stage[data-view='living'] {
+  --dual-solid: 100%;
+  --dual-size: 145%;
+  --dual-x: 50%;
+  --dual-y: 50%;
+}
+
+.dual-form-annotation {
+  position: absolute;
+  z-index: 5;
+  inset: auto var(--space-s) var(--space-s);
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-dim);
+  font-family: var(--mono-font-family);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dual-form-annotation span:last-child {
+  color: var(--moss);
+}
+
+.dual-form-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-s);
+}
+
+.dual-form-state-button {
+  min-height: 44px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--mono-font-family);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.dual-form-state-button[aria-pressed='true'] {
+  border-color: var(--moss);
+  background: var(--moss);
+  color: var(--paper);
+}
+
+/* CSS fallback when media is absent: intentionally schematic, never factual. */
+.dual-form-generated .dual-form-capital,
+.dual-form-generated .dual-form-shaft,
+.dual-form-generated .dual-form-base {
+  position: absolute;
+  left: 50%;
+  border: 1px solid var(--rule);
+  background: linear-gradient(90deg, var(--paper-deep), var(--paper), var(--paper-deep));
+  transform: translateX(-50%);
+}
+
+.dual-form-generated .dual-form-capital {
+  top: 14%;
+  width: 52%;
+  height: 11%;
+  border-radius: 50% 50% 8% 8%;
+}
+
+.dual-form-generated .dual-form-shaft {
+  top: 23%;
+  bottom: 19%;
+  width: 30%;
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, var(--paper-deep) 0 8%, var(--paper) 8% 17%);
+}
+
+.dual-form-generated .dual-form-base {
+  bottom: 12%;
+  width: 58%;
+  height: 10%;
+}
+
+.dual-form-living.dual-form-generated .dual-form-vine {
+  position: absolute;
+  top: 18%;
+  bottom: 12%;
+  left: 48%;
+  width: 8%;
+  border: 8px solid var(--moss);
+  border-block: 0;
+  border-radius: 50%;
+  transform: rotate(8deg);
+  box-shadow: 2.4rem 2rem 0 -0.55rem var(--moss-bright), -2rem 8rem 0 -0.5rem var(--lichen);
+}
+
+@container dual-form (width >= 50rem) {
+  .dual-form-frame {
+    grid-template-columns: minmax(0, 0.92fr) minmax(20rem, 1.08fr);
+    gap: clamp(3rem, 8cqi, 7rem);
+    min-height: 38rem;
+  }
+
+  .dual-form:nth-of-type(even) .dual-form-copy {
+    order: 2;
+  }
+
+  .dual-form:nth-of-type(even) .dual-form-art {
+    order: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dual-form-living {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .dual-form-stage {
+    border: 2px solid CanvasText;
+    background: Canvas;
+  }
+
+  .dual-form-living {
+    opacity: 0.45;
+  }
+}

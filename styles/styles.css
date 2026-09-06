@@ -34,6 +34,13 @@
   --stamp-red-deep: #7a1712;
   --stamp-red-tint: rgb(163 36 29 / 10%);
 
+  /* living system — growth is reserved for verified structure */
+  --moss: #315c45;
+  --moss-bright: #6f8f58;
+  --lichen: #cad2a3;
+  --copper: #9b4d2b;
+  --moss-tint: rgb(49 92 69 / 11%);
+
   /* state inks */
   --ink-ok: #1e6b3e;
   --ink-ok-tint: rgb(30 107 62 / 10%);
@@ -62,6 +69,7 @@
   /* fonts */
   --body-font-family: ibm-plex-sans, ibm-plex-sans-fallback, arial, sans-serif;
   --heading-font-family: var(--body-font-family);
+  --display-font-family: 'Iowan Old Style', 'Palatino Linotype', palatino, georgia, serif;
   --mono-font-family: ibm-plex-mono, ibm-plex-mono-fallback, ui-monospace, 'SF Mono', menlo, consolas, monospace;
 
   /* body sizes */
@@ -129,7 +137,6 @@
 }
 
 body {
-  display: none;
   margin: 0;
   background-color: var(--paper);
   color: var(--ink);
@@ -182,6 +189,13 @@ h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
+
+h1,
+h2 {
+  font-family: var(--display-font-family);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
 
 p,
 dl,
@@ -378,6 +392,18 @@ main img {
   width: 100%;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
 /*
  * Stamped state chip — shared cross-block component (used by the header
  * version chip, and by the receipt / ledger / terminal blocks for
@@ -506,6 +532,37 @@ main .section.dark > .default-content-wrapper > p:first-child > em:only-child {
 main > .section.hero-container > .hero-wrapper {
   max-width: unset;
   padding: 0;
+}
+
+main > .section.painterly-hero-container > .painterly-hero-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+main > .section.garden {
+  position: relative;
+}
+
+main > .section.garden::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -2rem 0;
+  background:
+    radial-gradient(circle at 8% 40%, var(--moss-tint), transparent 26%),
+    radial-gradient(circle at 92% 62%, rgb(202 210 163 / 24%), transparent 25%);
+  pointer-events: none;
+}
+
+main > .section.garden > div {
+  position: relative;
+  z-index: 1;
+}
+
+main > .section.archive-note {
+  padding-block: var(--space-m);
+  border-block: var(--hairline) solid var(--rule);
+  background: var(--paper-deep);
 }
 
 main > .section:first-of-type {

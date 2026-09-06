@@ -1,63 +1,91 @@
-# Direction — The Outer Loop
+# Direction — Living Infrastructure
 
 ## Lock
 
-- **Thesis:** EDS is the stable mass; da-cli is the deliberate operating orbit that names each remote boundary, crosses it once, and leaves evidence that stays.
-- **System:** `other:editorial systems cartography` — a bright proof ledger organized by one six-gate orbit, built as an accessible Lottie enhancement over a complete static first frame and reinforced by semantic process maps.
-- **Depth:** house.
-- **Forbidden sibling:** `da-cli-0-6-5` — preserve its evidence rigor, IBM Plex family, and receipt semantics, but do not repeat its receipt-stack hero, equal card-grid rhythm, or make the proof technique the only object.
-- **Custom object:** one highly elliptical operations orbit around an EDS gravitational mass; its six named gates emit retained receipt markers.
-- **Law:** every boundary crossing leaves a retained mark. Motion reveals the contract but never carries it alone.
-- **Silence:** no dark mission-control grid, WebGL spectacle, particle field, nautical nostalgia, stock AI art, decorative glow, scroll-jacking, or motion-dependent meaning.
+- **Thesis:** da-cli turns capable automation into situated operation: the structure stays stable while target, authority, intent, and evidence become visible around it.
+- **System:** painterly editorial infrastructure — warm paper, dark structural forms, mineral green growth, oxidized copper annotations, and exact monospace evidence.
+- **Transformation:** bare operational architecture becomes a living, evidence-bearing system without changing silhouette.
+- **Hero object:** one operations gate and six quiet crossings around a stable EDS mass. Grok Imagine supplies atmospheric material only; HTML and CSS own every word, number, state, and diagram.
+- **Interaction:** dual-state mask reveals, a semantic six-gate operating map, and a filterable 138-path coverage field.
+- **Peripheral frame:** low-opacity paired pillars on wide screens only; absent on constrained screens and nonessential everywhere.
+- **Forbidden sibling:** `da-cli-0-6-0`. Reuse its progressive-enhancement discipline and dual-state principle, not its classical figures, Ionic assets, literal moss treatment, typography recipe, copy, or generated imagery.
+- **Silence:** no generic dark-tech grid, neon glow, glass dashboard, fake terminal theater, stock AI art, scroll-jacking, or motion-dependent meaning.
+
+## Content architecture
+
+The primary navigation is durable:
+
+1. **Overview** — what da-cli is and how it complements the render loop.
+2. **Workflow** — orient, source, preview, prove, publish, reconcile.
+3. **Safety** — authority, dry run, commit, verification, and the Riverboat exception.
+4. **Coverage** — the classification and closure method.
+5. **Reference** — the complete versioned command contract: one searchable 138-path catalog, 24 family hubs, and one canonical page per executable command path.
+6. **Release Evidence** — dated 0.6.6 qualification facts and links to deeper records.
+7. **Receipts** — a generated operational archive reached from Release Evidence, not a marketing homepage.
+
+Legacy `/review`, `/ledger`, `/evidence`, and `/riverboat` pages remain deep evidence records. They are not the primary product story.
+
+Reference pages use the density logic of `aos-docs--somarc` without borrowing its Spectrum-derived look: a persistent command-family rail, a readable center document, compact metadata rows, local filtering, and direct deep links. Their visual translation is a manila filing system—folder tabs, rules, stamped states, and dark ink panels.
+
+Documentation coverage and field-observation coverage are independent:
+
+- **138/138 documented** means every executable path in the source-derived 0.6.6 manifest has exactly one canonical reference page.
+- **107/138 observed** is the dated r3 evidence result. It remains partial while 27 paths are unobserved, one is externally blocked, and three are excluded by policy.
+- Parent commands (`config`, `preview`, and `stardust`) are executable paths and receive pages of their own.
+- Aliases (`index create`, `index show`) are search terms on canonical pages, never duplicate command identities.
+
+## Claim model
+
+Every statement belongs to one class:
+
+- **Product contract:** durable behavior without a release date.
+- **Method:** durable explanation of how work or evidence is evaluated.
+- **Candidate snapshot:** versioned, dated, and bound to repository evidence.
+- **Release verification:** only after npm, tag, GitHub Release, packed install, integrity, and post-publication checks exist.
+- **Archive record:** generated historical data that can describe an operation but cannot approve one.
+
+Do not move a claim into a stronger class because it reads better.
+
+## Visual contract
+
+### Painterly hero
+
+- Poster is the LCP and complete resting state.
+- Silent video is an optional enhancement, paused offscreen, with an explicit pause/play control.
+- Reduced-motion users receive the poster only.
+- Copy remains real HTML above the art; generated media contains no text, charts, commands, or product claims.
+- The media dissolves into the page field rather than sitting in a generic card.
+
+### Dual form
+
+- One stable silhouette, two materially distinct states: structure and evidence-bearing growth.
+- Pointer movement may reveal a soft composite, but explicit buttons expose both states to keyboard and touch users.
+- Internal image layers are decorative; the wrapper provides one accessible description.
+- Only the first-viewport hero receives eager media priority.
+
+### Widgets
+
+- Widgets explain; they do not execute commands or imply live system state.
+- Static HTML remains meaningful when widget JavaScript fails.
+- Controls use native buttons, visible focus, and live status only for interaction feedback.
+- Exact numbers and command names are code/HTML data, never generated pixels.
 
 ## Product truth
 
-`da-cli` is structured operating hygiene for agentic AEM Edge Delivery. It establishes target and authentication state, inspects through known read contracts, expresses mutations as typed actions, dry-runs explicit plans, binds execution to reviewed intent, requires approval at mutation boundaries, and verifies the resulting state.
+`da-cli` establishes target and authentication state, inspects known contracts, expresses mutations as typed plans, keeps a deliberate commit boundary, verifies resulting state, and retains evidence. DA owns authored content; Git owns implementation; QMD is a local evidence projection and cannot authorize operations.
 
-Riverboat Gambler is the deliberate exception. It permits an operator-approved local shell maneuver outside that structured command contract. The visual language must not turn the exception into the whole product.
+Riverboat Gambler is the explicit local-shell exception. It names lost guarantees; it does not make arbitrary code safe.
 
-The local-pilot metaphor is precise: a generally capable vessel still needs validated, continuously maintained knowledge of the local waterway. Agents may know how to operate software. `da-cli` knows these waters.
+## Current release boundary
 
-The release site must also preserve the current publication boundary. `0.6.6` is a merged, fully qualified candidate, not a published package, until the manual release workflow produces the npm version, Git tag, GitHub Release, and post-publication verification. The visual status language may say **release-ready** or **candidate**; it must not imply those publication boundaries already happened.
-
-## Motion contract
-
-- EDS stays fixed at the visual center of gravity.
-- The inner render loop stays close and quiet.
-- One high-salience operation marker follows the outer ellipse.
-- At each of the six gates it makes precise contact and raises a receipt marker that remains present at rest.
-- Semantic labels remain in HTML, never trapped inside animation geometry.
-- The fallback SVG and reduced-motion state show the complete topology immediately.
-- Playback pauses offscreen and exposes an explicit pause/replay control.
-
-## Explanatory depth
-
-- The hero makes the inner render loop and outer operations loop recognizable in the first mobile viewport.
-- The authored six-step operating lifecycle drives a second, static systems map beside its semantic list; it is the same object, not a second visual metaphor.
-- The 138-path evidence field gives every classified command path one visible mark: 15 retained observations, 46 newly observed paths, 71 not observed, 1 blocked, 2 conditional, and 3 not applicable.
-- The authority map separates DA-authored content, Git-owned implementation, and local QMD evidence. No visual may promote QMD receipts into release or execution authority.
-
-## Current-heat merge
-
-- **Scout:** 2026-09-05
-- **Heat:** explanations with one memorable object; motion that reveals sequence or state; bright editorial density structured by dates, numerals, sources, and thin rules.
-- **Anti-heat:** generic dark-tech grids; spatial interfaces as the only interface; cinematic withholding; vanishing toast receipts; one desktop canvas merely miniaturized on mobile.
-- **Mapped:** `other:editorial systems cartography`.
-- **EDS path:** house system for this release site only; self-hosted light Lottie runtime, no WebGL-only first paint, no new framework.
-- **Cites:** [AI in Design Report 2026](https://stateofaidesign.com/) for proof-led editorial density and [illoca](https://illoca.unseen.co/) for verbs expressed as a spatial operating model. Steal the laws, never the look or runtime stack.
-
-## Producer gate
-
-- **Subject:** da-cli as the validated operating fabric around EDS.
-- **Object:** the six-gate outer loop around the EDS mass.
-- **Law:** every boundary crossing leaves a precise, retained mark.
-- **Silence:** the forbidden list above.
-- **Veto:** keep.
+The site must not imply that 0.6.6 is published until publication evidence exists. The working r3 qualification snapshot generated 2026-09-06 reports 107/138 observed paths, 27 not observed, one externally blocked path, three policy exclusions, and 10/33 required-destructive paths observed. These values belong only on dated evidence surfaces.
 
 ## Accessibility and performance
 
-- Hero copy is the LCP candidate; animation loads progressively after content.
-- The static SVG fallback is complete and visible before Lottie loads or when it fails.
-- `prefers-reduced-motion` freezes a complete evidence frame.
-- The animation is decorative explanation; page meaning, states, and proof remain semantic HTML.
-- No external CDN or runtime request: the light Lottie player and animation JSON ship on the code bus.
+- The page is readable before JavaScript; enhancement never gates body visibility.
+- One `h1` per page.
+- Reduced motion removes generated video and freezes decorative masks.
+- Decorative layers expose one accessible representation, not duplicate image announcements.
+- Widgets work by keyboard and retain semantic fallback content.
+- Fixed gutters are `aria-hidden`, non-interactive, and hidden below 1180px.
+- No external runtime or framework is introduced.

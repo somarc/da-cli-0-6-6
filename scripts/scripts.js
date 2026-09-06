@@ -10,6 +10,8 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -104,6 +106,21 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Applies authored section metadata before generic divs are identified as blocks.
+ * @param {HTMLElement} main The main container element
+ */
+function applySectionMetadata(main) {
+  main.querySelectorAll(':scope > div > .section-metadata').forEach((metadata) => {
+    const section = metadata.parentElement;
+    const config = readBlockConfig(metadata);
+    const styles = Array.isArray(config.style) ? config.style : String(config.style || '').split(',');
+    styles.map((style) => toClassName(style.trim())).filter(Boolean)
+      .forEach((style) => section.classList.add(style));
+    metadata.remove();
+  });
+}
+
+/**
  * Decorates formatted links to style them as buttons.
  * @param {HTMLElement} main The main container element
  */
@@ -150,6 +167,7 @@ function decorateButtons(main) {
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
+  applySectionMetadata(main);
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
@@ -205,7 +223,20 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   import('./consent-check.js');
-  // load anything that can be postponed to the latest here
+
+  if (document.body.classList.contains('living')) {
+    loadCSS(`${window.hlx.codeBasePath}/styles/living-gutters.css`);
+    import('./living-gutters.js')
+      .then(({ default: initLivingGutters }) => initLivingGutters())
+      .catch(() => {});
+  }
+
+  if (document.body.classList.contains('reference')) {
+    loadCSS(`${window.hlx.codeBasePath}/styles/reference-shell.css`);
+    import('./reference-shell.js')
+      .then(({ default: initReferenceShell }) => initReferenceShell())
+      .catch(() => {});
+  }
 }
 
 async function loadPage() {

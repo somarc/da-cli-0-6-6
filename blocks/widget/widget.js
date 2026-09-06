@@ -62,9 +62,11 @@ export default async function decorate(widget) {
   const { widgetPath, widgetName } = parseWidgetHref(pathname);
 
   try {
+    widget.setAttribute('aria-busy', 'true');
     applyWidgetShell(widget, source, widgetName, searchParams);
 
     const resp = await fetch(widgetUrl(widgetPath, widgetName, 'html'));
+    if (!resp.ok) throw new Error(`widget response ${resp.status}`);
     widget.innerHTML = await resp.text();
 
     const cssLoaded = loadCSS(widgetUrl(widgetPath, widgetName, 'css'));
@@ -73,7 +75,15 @@ export default async function decorate(widget) {
       if (mod.default) await mod.default(widget);
     })();
     await Promise.all([cssLoaded, decorationComplete]);
+    widget.removeAttribute('aria-busy');
   } catch (error) {
+    widget.removeAttribute('aria-busy');
+    widget.classList.add('widget-failed');
+    const message = document.createElement('p');
+    message.className = 'widget-error';
+    message.setAttribute('role', 'status');
+    message.textContent = 'This interactive view could not be loaded. The surrounding page remains the authoritative explanation.';
+    widget.replaceChildren(message);
     // eslint-disable-next-line no-console
     console.error(`failed to load widget ${widgetPath}/${widgetName}`, error);
   }

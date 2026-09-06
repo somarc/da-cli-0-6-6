@@ -1,0 +1,45 @@
+<div class="coverage-lens-shell" data-total="138" data-observed="107" data-unobserved="27" data-blocked="1" data-excluded="3">
+  <div class="coverage-lens-head">
+    <div>
+      <p class="coverage-lens-kicker">Candidate snapshot · rubric r3 · 2026-09-06</p>
+      <p class="coverage-lens-number"><strong>107</strong><span>/ 138 observed</span></p>
+    </div>
+    <p>This is a dated qualification snapshot, not a rolling product claim. The closure target is zero unexplained paths—not 138 unsafe successes.</p>
+  </div>
+  <div class="coverage-lens-controls" aria-label="Filter command-path marks">
+    <button type="button" data-filter="all" aria-pressed="true">All 138</button>
+    <button type="button" data-filter="observed" aria-pressed="false">Observed 107</button>
+    <button type="button" data-filter="unobserved" aria-pressed="false">Unobserved 27</button>
+    <button type="button" data-filter="blocked" aria-pressed="false">Blocked 1</button>
+    <button type="button" data-filter="excluded" aria-pressed="false">Excluded 3</button>
+  </div>
+  <div class="coverage-lens-field" aria-hidden="true"></div>
+  <p class="coverage-lens-status" aria-live="polite">Showing all 138 classified command paths.</p>
+  <div class="coverage-lens-boundary">
+    <details>
+      <summary>27 paths still need valid observation</summary>
+      <p>Four are read or local-state paths: <code>code job</code>, <code>content clone</code>, <code>content diff</code>, and <code>content merge</code>. The remaining paths cross operational or destructive boundaries and need a controlled target, explicit approval, verification, and cleanup.</p>
+      <ul>
+        <li><code>code purge</code>, <code>code sync</code></li>
+        <li><code>deploy page</code>, <code>deploy pages</code></li>
+        <li><code>index add</code>, <code>index build</code>, <code>index remove</code>, <code>index remove-property</code>, <code>index set-property</code>, <code>index update</code></li>
+        <li><code>job promote</code>, <code>job run</code>, <code>job start</code></li>
+        <li><code>migrate batch</code>, <code>migrate import</code></li>
+        <li><code>publish page</code>, <code>publish pages</code>, <code>publish tree</code>, <code>publish unpublish</code></li>
+        <li><code>route clean</code>, <code>site register</code>, <code>sitemap rebuild</code>, <code>stardust migrate</code></li>
+      </ul>
+    </details>
+    <details>
+      <summary>1 path is blocked by an external condition</summary>
+      <p><code>site create</code> requires configuration-service write authority that is not available in the current qualification environment.</p>
+    </details>
+    <details>
+      <summary>3 paths are policy exclusions</summary>
+      <ul>
+        <li><code>auth token</code> — secret streams are forbidden in retained evidence.</li>
+        <li><code>commerce product-bus ingest</code> — legacy commerce write path is quarantined.</li>
+        <li><code>commerce product-bus plan</code> — legacy lossy planner is quarantined.</li>
+      </ul>
+    </details>
+  </div>
+</div>
