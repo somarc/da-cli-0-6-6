@@ -19,6 +19,36 @@
   padding: var(--space-m) var(--space-s) var(--space-xl);
   border-right: 1px solid var(--rule);
   box-shadow: 7px 0 22px rgb(23 20 13 / 6%);
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-dim) var(--paper-deep);
+  scrollbar-gutter: stable;
+}
+
+.reference-shell-nav:hover,
+.reference-shell-nav:focus-within {
+  scrollbar-color: var(--ink-soft) var(--paper-deep);
+}
+
+/* Older WebKit keeps the same paper track and rounded ink thumb. */
+@supports not (scrollbar-color: auto) {
+  .reference-shell-nav::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .reference-shell-nav::-webkit-scrollbar-track {
+    background: var(--paper-deep);
+  }
+
+  .reference-shell-nav::-webkit-scrollbar-thumb {
+    border: 2px solid var(--paper-deep);
+    border-radius: 999px;
+    background: var(--ink-dim);
+  }
+
+  .reference-shell-nav:hover::-webkit-scrollbar-thumb,
+  .reference-shell-nav:focus-within::-webkit-scrollbar-thumb {
+    background: var(--ink-soft);
+  }
 }
 
 .reference-shell-head {
@@ -253,6 +283,17 @@
 }
 
 @media (forced-colors: active) {
+  .reference-shell-nav {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  .reference-shell-nav::-webkit-scrollbar,
+  .reference-shell-nav::-webkit-scrollbar-track,
+  .reference-shell-nav::-webkit-scrollbar-thumb {
+    all: revert;
+  }
+
   .reference-shell-nav,
   .reference-shell-local,
   .reference-shell-toggle {
